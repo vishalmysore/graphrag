@@ -370,20 +370,7 @@ User Query
 - [ ] SPARQL integration for ontology queries
 - [ ] Export RAG responses to ontology annotations
 
-## 📖 Resources
 
-- [Neo4j Graph Database](https://neo4j.com/docs/)
-- [RAG Tutorial](https://www.anthropic.com/index/contextual-retrieval)
-- [Embeddings Guide](https://platform.openai.com/docs/guides/embeddings)
-- [Protégé Platform](https://protege.stanford.edu/)
-
-## 🤝 Contributing
-
-Contributions welcome! This plugin is open source.
-
-## 📄 License
-
-Apache 2.0 License
 
 ---
 
