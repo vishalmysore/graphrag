@@ -1,7 +1,7 @@
-# GraphRag4J : GraphRag For Java
+# GraphRag : GraphRag For Java
 
 A Protégé plugin that combines Neo4j graph databases, in-memory vector storage, and AI models to enable **Retrieval Augmented Generation (RAG)** for ontology exploration and knowledge graph querying.
-
+![Vidya Astra Architecture](health2.jpg)
 ## 🎯 What Does This Plugin Do?
 
 This plugin creates an intelligent bridge between:
