@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.protege.rag</groupId>
+    <artifactId>neo4j-rag-plugin</artifactId>
+    <version>1.0.0</version>
+    <packaging>bundle</packaging>
+
+    <name>Neo4j RAG Plugin for Protégé</name>
+    <description>
+        Protégé plugin for RAG-based ontology exploration using Neo4j graphs and in-memory vector store
+    </description>
+
+    <properties>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <protege.version>5.6.4</protege.version>
+        <neo4j.version>4.4.13</neo4j.version>
+    </properties>
+
+    <dependencies>
+        <!-- Protégé Dependencies -->
+        <dependency>
+            <groupId>edu.stanford.protege</groupId>
+            <artifactId>protege-editor-core</artifactId>
+            <version>${protege.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>edu.stanford.protege</groupId>
+            <artifactId>protege-editor-owl</artifactId>
+            <version>${protege.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Neo4j Driver -->
+        <dependency>
+            <groupId>org.neo4j.driver</groupId>
+            <artifactId>neo4j-java-driver</artifactId>
+            <version>${neo4j.version}</version>
+        </dependency>
+
+        <!-- Guava for utilities -->
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.0.0-jre</version>
+        </dependency>
+
+        <!-- HTTP Client for AI APIs -->
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>4.12.0</version>
+        </dependency>
+
+        <!-- JSON Processing -->
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.10.1</version>
+        </dependency>
+
+        <!-- OWL API -->
+        <dependency>
+            <groupId>net.sourceforge.owlapi</groupId>
+            <artifactId>owlapi-distribution</artifactId>
+            <version>4.5.26</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- SLF4J Logging -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.9</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.11.0</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                </configuration>
+            </plugin>
+            
+            <plugin>
+                <groupId>org.apache.felix</groupId>
+                <artifactId>maven-bundle-plugin</artifactId>
+                <version>5.1.9</version>
+                <extensions>true</extensions>
+                <configuration>
+                    <instructions>
+                        <Bundle-SymbolicName>${project.artifactId};singleton:=true</Bundle-SymbolicName>
+                        <Bundle-ClassPath>.</Bundle-ClassPath>
+                        <Bundle-Vendor>Neo4j RAG Plugin Team</Bundle-Vendor>
+                        <Embed-Transitive>true</Embed-Transitive>
+                        <Embed-Dependency>
+                            neo4j-java-driver,
+                            reactive-streams,
+                            guava,
+                            okhttp,
+                            okio,
+                            okio-jvm,
+                            gson,
+                            kotlin-stdlib*,
+                            checker-qual,
+                            error_prone_annotations,
+                            j2objc-annotations,
+                            failureaccess,
+                            listenablefuture
+                        </Embed-Dependency>
+                        <_exportcontents>
+                            com.protege.rag.*
+                        </_exportcontents>
+                        <Import-Package>
+                            org.protege.editor.core.*;version="[5.6,6.0)",
+                            org.protege.editor.owl.*;version="[5.6,6.0)",
+                            org.semanticweb.owlapi.*;version="[4.5,5.0)",
+                            javax.swing.*,
+                            java.awt.*,
+                            org.slf4j;version="[1.7,3.0)",
+                            *;resolution:=optional
+                        </Import-Package>
+                        <Include-Resource>
+                            {maven-resources}
+                        </Include-Resource>
+                        <_removeheaders>
+                            Require-Capability
+                        </_removeheaders>
+                    </instructions>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>
