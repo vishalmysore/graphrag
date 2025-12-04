@@ -239,13 +239,21 @@ public class RagService {
         
         // Build prompt with RAG context
         String systemPrompt = String.format(
-            "You are an ontology and knowledge graph expert assistant. " +
-            "Use the following context to answer the user's question.\n\n" +
+            "You are an expert knowledge graph analyst specializing in ontology-based question answering. " +
+            "Your task is to answer questions using ONLY the provided graph context.\n\n" +
+            "CRITICAL INSTRUCTIONS:\n" +
+            "1. Answer ONLY based on the RETRIEVED CONTEXT below\n" +
+            "2. Map user question terms to actual ontology relationships:\n" +
+            "   - 'created/made/generated' → check for 'detectedBy', 'discoveredBy', 'identifiedBy'\n" +
+            "   - 'involved/participated' → check for 'involvedIn', 'partOf'\n" +
+            "   - 'connected/linked' → check for relationship properties\n" +
+            "3. When individuals have relationships, ALWAYS mention them\n" +
+            "4. Use the actual property names from the context (e.g., 'detectedBy' not 'createdBy')\n" +
+            "5. If context is insufficient, say so - DO NOT make up information\n\n" +
             "GRAPH SCHEMA:\n%s\n\n" +
             "ONTOLOGY SUMMARY:\n%s\n\n" +
             "RETRIEVED CONTEXT:\n%s\n\n" +
-            "Provide a comprehensive answer based on the above context. " +
-            "If you suggest Cypher queries, make sure they match the graph schema exactly.",
+            "Answer the question using the relationships and properties shown in the context above.",
             graphSchema, ontologySummary, context
         );
         

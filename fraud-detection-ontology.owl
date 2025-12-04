@@ -1,0 +1,779 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/frauddetection#"
+     xml:base="http://www.semanticweb.org/frauddetection"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/frauddetection">
+        <rdfs:comment>Comprehensive fraud detection ontology for GraphRAG with rich semantic relationships</rdfs:comment>
+        <rdfs:label>Fraud Detection Knowledge Graph</rdfs:label>
+    </owl:Ontology>
+
+    <!-- =============================================== -->
+    <!-- ANNOTATION PROPERTIES -->
+    <!-- =============================================== -->
+    
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#comment"/>
+    <owl:AnnotationProperty rdf:about="http://www.w3.org/2000/01/rdf-schema#label"/>
+
+    <!-- =============================================== -->
+    <!-- OBJECT PROPERTIES (Relationships) -->
+    <!-- =============================================== -->
+
+    <!-- Financial Relationships -->
+    <owl:ObjectProperty rdf:about="#initiatedTransaction">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="#Transaction"/>
+        <rdfs:label>initiated transaction</rdfs:label>
+        <rdfs:comment>Links a person to a transaction they initiated</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#receivedTransaction">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="#Transaction"/>
+        <rdfs:label>received transaction</rdfs:label>
+        <rdfs:comment>Links a person to a transaction they received</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#ownsAccount">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="#Account"/>
+        <rdfs:label>owns account</rdfs:label>
+        <rdfs:comment>Links a person to an account they own</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#performedOn">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="#Account"/>
+        <rdfs:label>performed on</rdfs:label>
+        <rdfs:comment>Links a transaction to the account it was performed on</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#usedDevice">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="#Device"/>
+        <rdfs:label>used device</rdfs:label>
+        <rdfs:comment>Links a transaction to the device used</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#fromLocation">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>from location</rdfs:label>
+        <rdfs:comment>Geographic location where transaction originated</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#associatedWith">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="#Person"/>
+        <rdfs:label>associated with</rdfs:label>
+        <rdfs:comment>Links people who have associations or relationships</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#flaggedBy">
+        <rdfs:domain rdf:resource="#FraudCase"/>
+        <rdfs:range rdf:resource="#FraudDetectionRule"/>
+        <rdfs:label>flagged by</rdfs:label>
+        <rdfs:comment>Links a fraud case to the detection rule that flagged it</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#involvedIn">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="#FraudCase"/>
+        <rdfs:label>involved in</rdfs:label>
+        <rdfs:comment>Links a person to a fraud case they are involved in</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#investigatedBy">
+        <rdfs:domain rdf:resource="#FraudCase"/>
+        <rdfs:range rdf:resource="#Investigator"/>
+        <rdfs:label>investigated by</rdfs:label>
+        <rdfs:comment>Links a fraud case to its investigator</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#relatedTo">
+        <rdfs:domain rdf:resource="#FraudCase"/>
+        <rdfs:range rdf:resource="#Transaction"/>
+        <rdfs:label>related to</rdfs:label>
+        <rdfs:comment>Links a fraud case to related transactions</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#hasRiskIndicator">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="#RiskIndicator"/>
+        <rdfs:label>has risk indicator</rdfs:label>
+        <rdfs:comment>Links a transaction to its risk indicators</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#employedBy">
+        <rdfs:domain rdf:resource="#Investigator"/>
+        <rdfs:range rdf:resource="#Organization"/>
+        <rdfs:label>employed by</rdfs:label>
+        <rdfs:comment>Links an investigator to their organization</rdfs:comment>
+    </owl:ObjectProperty>
+
+    <!-- =============================================== -->
+    <!-- DATA PROPERTIES (Attributes) -->
+    <!-- =============================================== -->
+
+    <!-- Person Properties -->
+    <owl:DatatypeProperty rdf:about="#personID">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>person ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#fullName">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>full name</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#email">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>email</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#phoneNumber">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>phone number</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#riskScore">
+        <rdfs:domain rdf:resource="#Person"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>risk score</rdfs:label>
+        <rdfs:comment>Calculated risk score for the person (0-100)</rdfs:comment>
+    </owl:DatatypeProperty>
+
+    <!-- Account Properties -->
+    <owl:DatatypeProperty rdf:about="#accountNumber">
+        <rdfs:domain rdf:resource="#Account"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>account number</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#accountBalance">
+        <rdfs:domain rdf:resource="#Account"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>account balance</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#accountStatus">
+        <rdfs:domain rdf:resource="#Account"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>account status</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#creationDate">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>creation date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- Transaction Properties -->
+    <owl:DatatypeProperty rdf:about="#transactionID">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>transaction ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#amount">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>amount</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#currency">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>currency</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#timestamp">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>timestamp</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#status">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>status</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- Device Properties -->
+    <owl:DatatypeProperty rdf:about="#deviceID">
+        <rdfs:domain rdf:resource="#Device"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>device ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#ipAddress">
+        <rdfs:domain rdf:resource="#Device"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>IP address</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#deviceType">
+        <rdfs:domain rdf:resource="#Device"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>device type</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- Location Properties -->
+    <owl:DatatypeProperty rdf:about="#country">
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>country</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#city">
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>city</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#latitude">
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>latitude</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#longitude">
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>longitude</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- Fraud Case Properties -->
+    <owl:DatatypeProperty rdf:about="#caseID">
+        <rdfs:domain rdf:resource="#FraudCase"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>case ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#severity">
+        <rdfs:domain rdf:resource="#FraudCase"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>severity</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#description">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>description</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#financialLoss">
+        <rdfs:domain rdf:resource="#FraudCase"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>financial loss</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- =============================================== -->
+    <!-- CLASSES (Class Hierarchy) -->
+    <!-- =============================================== -->
+
+    <!-- Top Level Classes -->
+    <owl:Class rdf:about="#Agent">
+        <rdfs:label>Agent</rdfs:label>
+        <rdfs:comment>Any entity that can perform actions in the fraud detection system</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FinancialEntity">
+        <rdfs:label>Financial Entity</rdfs:label>
+        <rdfs:comment>Any entity involved in financial operations</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Event">
+        <rdfs:label>Event</rdfs:label>
+        <rdfs:comment>Any event or occurrence in the system</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Resource">
+        <rdfs:label>Resource</rdfs:label>
+        <rdfs:comment>Any resource used in transactions</rdfs:comment>
+    </owl:Class>
+
+    <!-- Agent Subclasses -->
+    <owl:Class rdf:about="#Person">
+        <rdfs:subClassOf rdf:resource="#Agent"/>
+        <rdfs:label>Person</rdfs:label>
+        <rdfs:comment>An individual person in the system</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Customer">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Customer</rdfs:label>
+        <rdfs:comment>A legitimate customer</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Fraudster">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Fraudster</rdfs:label>
+        <rdfs:comment>A person identified as committing fraud</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Investigator">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Investigator</rdfs:label>
+        <rdfs:comment>A fraud investigator</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Organization">
+        <rdfs:subClassOf rdf:resource="#Agent"/>
+        <rdfs:label>Organization</rdfs:label>
+        <rdfs:comment>An organizational entity</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FinancialInstitution">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <rdfs:label>Financial Institution</rdfs:label>
+        <rdfs:comment>A bank or financial institution</rdfs:comment>
+    </owl:Class>
+
+    <!-- Financial Entity Subclasses -->
+    <owl:Class rdf:about="#Account">
+        <rdfs:subClassOf rdf:resource="#FinancialEntity"/>
+        <rdfs:label>Account</rdfs:label>
+        <rdfs:comment>A financial account</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#BankAccount">
+        <rdfs:subClassOf rdf:resource="#Account"/>
+        <rdfs:label>Bank Account</rdfs:label>
+        <rdfs:comment>A traditional bank account</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CreditCard">
+        <rdfs:subClassOf rdf:resource="#Account"/>
+        <rdfs:label>Credit Card</rdfs:label>
+        <rdfs:comment>A credit card account</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CryptocurrencyWallet">
+        <rdfs:subClassOf rdf:resource="#Account"/>
+        <rdfs:label>Cryptocurrency Wallet</rdfs:label>
+        <rdfs:comment>A digital currency wallet</rdfs:comment>
+    </owl:Class>
+
+    <!-- Event Subclasses -->
+    <owl:Class rdf:about="#Transaction">
+        <rdfs:subClassOf rdf:resource="#Event"/>
+        <rdfs:label>Transaction</rdfs:label>
+        <rdfs:comment>A financial transaction</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Payment">
+        <rdfs:subClassOf rdf:resource="#Transaction"/>
+        <rdfs:label>Payment</rdfs:label>
+        <rdfs:comment>A payment transaction</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Withdrawal">
+        <rdfs:subClassOf rdf:resource="#Transaction"/>
+        <rdfs:label>Withdrawal</rdfs:label>
+        <rdfs:comment>A withdrawal transaction</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Transfer">
+        <rdfs:subClassOf rdf:resource="#Transaction"/>
+        <rdfs:label>Transfer</rdfs:label>
+        <rdfs:comment>A transfer between accounts</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#OnlineTransaction">
+        <rdfs:subClassOf rdf:resource="#Transaction"/>
+        <rdfs:label>Online Transaction</rdfs:label>
+        <rdfs:comment>A transaction performed online</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FraudCase">
+        <rdfs:subClassOf rdf:resource="#Event"/>
+        <rdfs:label>Fraud Case</rdfs:label>
+        <rdfs:comment>A fraud investigation case</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#IdentityTheftCase">
+        <rdfs:subClassOf rdf:resource="#FraudCase"/>
+        <rdfs:label>Identity Theft Case</rdfs:label>
+        <rdfs:comment>A case of identity theft</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#MoneyLaunderingCase">
+        <rdfs:subClassOf rdf:resource="#FraudCase"/>
+        <rdfs:label>Money Laundering Case</rdfs:label>
+        <rdfs:comment>A case of money laundering</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CreditCardFraudCase">
+        <rdfs:subClassOf rdf:resource="#FraudCase"/>
+        <rdfs:label>Credit Card Fraud Case</rdfs:label>
+        <rdfs:comment>A case of credit card fraud</rdfs:comment>
+    </owl:Class>
+
+    <!-- Resource Subclasses -->
+    <owl:Class rdf:about="#Device">
+        <rdfs:subClassOf rdf:resource="#Resource"/>
+        <rdfs:label>Device</rdfs:label>
+        <rdfs:comment>A device used for transactions</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Location">
+        <rdfs:subClassOf rdf:resource="#Resource"/>
+        <rdfs:label>Location</rdfs:label>
+        <rdfs:comment>A geographic location</rdfs:comment>
+    </owl:Class>
+
+    <!-- Detection and Analysis Classes -->
+    <owl:Class rdf:about="#RiskIndicator">
+        <rdfs:label>Risk Indicator</rdfs:label>
+        <rdfs:comment>An indicator of potential fraud risk</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#AnomalousVelocity">
+        <rdfs:subClassOf rdf:resource="#RiskIndicator"/>
+        <rdfs:label>Anomalous Velocity</rdfs:label>
+        <rdfs:comment>Unusual transaction velocity pattern</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#UnusualLocation">
+        <rdfs:subClassOf rdf:resource="#RiskIndicator"/>
+        <rdfs:label>Unusual Location</rdfs:label>
+        <rdfs:comment>Transaction from unusual geographic location</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#SuspiciousAmount">
+        <rdfs:subClassOf rdf:resource="#RiskIndicator"/>
+        <rdfs:label>Suspicious Amount</rdfs:label>
+        <rdfs:comment>Transaction amount is suspicious</rdfs:comment>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FraudDetectionRule">
+        <rdfs:label>Fraud Detection Rule</rdfs:label>
+        <rdfs:comment>A rule used to detect fraud</rdfs:comment>
+    </owl:Class>
+
+    <!-- =============================================== -->
+    <!-- INSTANCES (Individuals) -->
+    <!-- =============================================== -->
+
+    <!-- Legitimate Customers -->
+    <Customer rdf:about="#Customer_Alice_Johnson">
+        <fullName>Alice Johnson</fullName>
+        <personID>CUST-001</personID>
+        <email>alice.johnson@email.com</email>
+        <phoneNumber>+1-555-0101</phoneNumber>
+        <riskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#float">15.5</riskScore>
+        <rdfs:label>Alice Johnson</rdfs:label>
+    </Customer>
+
+    <Customer rdf:about="#Customer_Bob_Smith">
+        <fullName>Bob Smith</fullName>
+        <personID>CUST-002</personID>
+        <email>bob.smith@email.com</email>
+        <phoneNumber>+1-555-0102</phoneNumber>
+        <riskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#float">12.3</riskScore>
+        <rdfs:label>Bob Smith</rdfs:label>
+    </Customer>
+
+    <Customer rdf:about="#Customer_Carol_Davis">
+        <fullName>Carol Davis</fullName>
+        <personID>CUST-003</personID>
+        <email>carol.davis@email.com</email>
+        <phoneNumber>+1-555-0103</phoneNumber>
+        <riskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8.7</riskScore>
+        <rdfs:label>Carol Davis</rdfs:label>
+    </Customer>
+
+    <!-- Fraudsters -->
+    <Fraudster rdf:about="#Fraudster_John_Doe">
+        <fullName>John Doe</fullName>
+        <personID>FRAUD-001</personID>
+        <email>john.fake@tempmail.com</email>
+        <phoneNumber>+1-555-9999</phoneNumber>
+        <riskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#float">95.8</riskScore>
+        <rdfs:label>John Doe (Fraudster)</rdfs:label>
+    </Fraudster>
+
+    <Fraudster rdf:about="#Fraudster_Jane_Roe">
+        <fullName>Jane Roe</fullName>
+        <personID>FRAUD-002</personID>
+        <email>jane.fake@tempmail.com</email>
+        <phoneNumber>+1-555-9998</phoneNumber>
+        <riskScore rdf:datatype="http://www.w3.org/2001/XMLSchema#float">88.2</riskScore>
+        <associatedWith rdf:resource="#Fraudster_John_Doe"/>
+        <rdfs:label>Jane Roe (Fraudster)</rdfs:label>
+    </Fraudster>
+
+    <!-- Investigators -->
+    <Investigator rdf:about="#Investigator_Sarah_Williams">
+        <fullName>Sarah Williams</fullName>
+        <personID>INV-001</personID>
+        <email>s.williams@fraudunit.com</email>
+        <phoneNumber>+1-555-2001</phoneNumber>
+        <rdfs:label>Sarah Williams</rdfs:label>
+    </Investigator>
+
+    <Investigator rdf:about="#Investigator_Michael_Brown">
+        <fullName>Michael Brown</fullName>
+        <personID>INV-002</personID>
+        <email>m.brown@fraudunit.com</email>
+        <phoneNumber>+1-555-2002</phoneNumber>
+        <rdfs:label>Michael Brown</rdfs:label>
+    </Investigator>
+
+    <!-- Organizations -->
+    <FinancialInstitution rdf:about="#Bank_SecureBank">
+        <rdfs:label>SecureBank Financial</rdfs:label>
+        <description>Major financial institution</description>
+    </FinancialInstitution>
+
+    <Organization rdf:about="#Org_FraudInvestigationUnit">
+        <rdfs:label>Fraud Investigation Unit</rdfs:label>
+        <description>Specialized fraud investigation department</description>
+    </Organization>
+
+    <!-- Accounts -->
+    <BankAccount rdf:about="#Account_Alice_Checking">
+        <accountNumber>CHK-10001</accountNumber>
+        <accountBalance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">15420.50</accountBalance>
+        <accountStatus>Active</accountStatus>
+        <creationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-01-15T10:00:00</creationDate>
+        <ownsAccount rdf:resource="#Customer_Alice_Johnson"/>
+        <rdfs:label>Alice's Checking Account</rdfs:label>
+    </BankAccount>
+
+    <CreditCard rdf:about="#Account_Bob_CreditCard">
+        <accountNumber>CC-20001</accountNumber>
+        <accountBalance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-2340.75</accountBalance>
+        <accountStatus>Active</accountStatus>
+        <creationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2019-05-20T14:30:00</creationDate>
+        <ownsAccount rdf:resource="#Customer_Bob_Smith"/>
+        <rdfs:label>Bob's Credit Card</rdfs:label>
+    </CreditCard>
+
+    <BankAccount rdf:about="#Account_Fraudster_Suspicious">
+        <accountNumber>CHK-99001</accountNumber>
+        <accountBalance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.00</accountBalance>
+        <accountStatus>Frozen</accountStatus>
+        <creationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-01T09:15:00</creationDate>
+        <ownsAccount rdf:resource="#Fraudster_John_Doe"/>
+        <rdfs:label>Suspicious Account</rdfs:label>
+    </BankAccount>
+
+    <CryptocurrencyWallet rdf:about="#Account_Crypto_Wallet1">
+        <accountNumber>CRYPTO-0xABC123</accountNumber>
+        <accountBalance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</accountBalance>
+        <accountStatus>Suspended</accountStatus>
+        <creationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-10-15T11:22:00</creationDate>
+        <ownsAccount rdf:resource="#Fraudster_Jane_Roe"/>
+        <rdfs:label>Crypto Wallet</rdfs:label>
+    </CryptocurrencyWallet>
+
+    <!-- Devices -->
+    <Device rdf:about="#Device_iPhone_Alice">
+        <deviceID>DEV-MOBILE-001</deviceID>
+        <deviceType>iPhone 14</deviceType>
+        <ipAddress>192.168.1.101</ipAddress>
+        <rdfs:label>Alice's iPhone</rdfs:label>
+    </Device>
+
+    <Device rdf:about="#Device_Laptop_Bob">
+        <deviceID>DEV-LAPTOP-002</deviceID>
+        <deviceType>MacBook Pro</deviceType>
+        <ipAddress>192.168.1.105</ipAddress>
+        <rdfs:label>Bob's Laptop</rdfs:label>
+    </Device>
+
+    <Device rdf:about="#Device_Suspicious_Desktop">
+        <deviceID>DEV-UNKNOWN-999</deviceID>
+        <deviceType>Unknown Desktop</deviceType>
+        <ipAddress>45.12.34.56</ipAddress>
+        <rdfs:label>Suspicious Device</rdfs:label>
+    </Device>
+
+    <!-- Locations -->
+    <Location rdf:about="#Location_NewYork">
+        <country>USA</country>
+        <city>New York</city>
+        <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">40.7128</latitude>
+        <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-74.0060</longitude>
+        <rdfs:label>New York, USA</rdfs:label>
+    </Location>
+
+    <Location rdf:about="#Location_London">
+        <country>UK</country>
+        <city>London</city>
+        <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">51.5074</latitude>
+        <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-0.1278</longitude>
+        <rdfs:label>London, UK</rdfs:label>
+    </Location>
+
+    <Location rdf:about="#Location_Nigeria">
+        <country>Nigeria</country>
+        <city>Lagos</city>
+        <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">6.5244</latitude>
+        <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.3792</longitude>
+        <rdfs:label>Lagos, Nigeria</rdfs:label>
+    </Location>
+
+    <!-- Legitimate Transactions -->
+    <Payment rdf:about="#Transaction_TXN001">
+        <transactionID>TXN-001</transactionID>
+        <amount rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.50</amount>
+        <currency>USD</currency>
+        <timestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-12-01T10:30:00</timestamp>
+        <status>Completed</status>
+        <initiatedTransaction rdf:resource="#Customer_Alice_Johnson"/>
+        <performedOn rdf:resource="#Account_Alice_Checking"/>
+        <usedDevice rdf:resource="#Device_iPhone_Alice"/>
+        <fromLocation rdf:resource="#Location_NewYork"/>
+        <rdfs:label>Payment Transaction TXN-001</rdfs:label>
+    </Payment>
+
+    <Transfer rdf:about="#Transaction_TXN002">
+        <transactionID>TXN-002</transactionID>
+        <amount rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.00</amount>
+        <currency>USD</currency>
+        <timestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-12-02T14:15:00</timestamp>
+        <status>Completed</status>
+        <initiatedTransaction rdf:resource="#Customer_Bob_Smith"/>
+        <receivedTransaction rdf:resource="#Customer_Alice_Johnson"/>
+        <usedDevice rdf:resource="#Device_Laptop_Bob"/>
+        <fromLocation rdf:resource="#Location_NewYork"/>
+        <rdfs:label>Transfer Transaction TXN-002</rdfs:label>
+    </Transfer>
+
+    <!-- Fraudulent Transactions -->
+    <OnlineTransaction rdf:about="#Transaction_FRAUD001">
+        <transactionID>TXN-FRAUD-001</transactionID>
+        <amount rdf:datatype="http://www.w3.org/2001/XMLSchema#float">9850.00</amount>
+        <currency>USD</currency>
+        <timestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-15T03:45:00</timestamp>
+        <status>Flagged</status>
+        <initiatedTransaction rdf:resource="#Fraudster_John_Doe"/>
+        <performedOn rdf:resource="#Account_Fraudster_Suspicious"/>
+        <usedDevice rdf:resource="#Device_Suspicious_Desktop"/>
+        <fromLocation rdf:resource="#Location_Nigeria"/>
+        <rdfs:label>Fraudulent Transaction FRAUD-001</rdfs:label>
+    </OnlineTransaction>
+
+    <Withdrawal rdf:about="#Transaction_FRAUD002">
+        <transactionID>TXN-FRAUD-002</transactionID>
+        <amount rdf:datatype="http://www.w3.org/2001/XMLSchema#float">5000.00</amount>
+        <currency>USD</currency>
+        <timestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-16T04:12:00</timestamp>
+        <status>Blocked</status>
+        <initiatedTransaction rdf:resource="#Fraudster_John_Doe"/>
+        <performedOn rdf:resource="#Account_Fraudster_Suspicious"/>
+        <fromLocation rdf:resource="#Location_Nigeria"/>
+        <rdfs:label>Fraudulent Withdrawal FRAUD-002</rdfs:label>
+    </Withdrawal>
+
+    <OnlineTransaction rdf:about="#Transaction_FRAUD003">
+        <transactionID>TXN-FRAUD-003</transactionID>
+        <amount rdf:datatype="http://www.w3.org/2001/XMLSchema#float">15000.00</amount>
+        <currency>USD</currency>
+        <timestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-17T02:30:00</timestamp>
+        <status>Flagged</status>
+        <initiatedTransaction rdf:resource="#Fraudster_Jane_Roe"/>
+        <performedOn rdf:resource="#Account_Crypto_Wallet1"/>
+        <usedDevice rdf:resource="#Device_Suspicious_Desktop"/>
+        <fromLocation rdf:resource="#Location_London"/>
+        <rdfs:label>Fraudulent Crypto Transaction FRAUD-003</rdfs:label>
+    </OnlineTransaction>
+
+    <!-- Risk Indicators -->
+    <AnomalousVelocity rdf:about="#Risk_HighVelocity_001">
+        <description>10 transactions in 15 minutes</description>
+        <hasRiskIndicator rdf:resource="#Transaction_FRAUD001"/>
+        <rdfs:label>High Velocity Risk</rdfs:label>
+    </AnomalousVelocity>
+
+    <UnusualLocation rdf:about="#Risk_UnusualLocation_001">
+        <description>Transaction from high-risk country</description>
+        <hasRiskIndicator rdf:resource="#Transaction_FRAUD001"/>
+        <rdfs:label>Unusual Location Risk</rdfs:label>
+    </UnusualLocation>
+
+    <SuspiciousAmount rdf:about="#Risk_LargeAmount_001">
+        <description>Amount exceeds 200% of average transaction</description>
+        <hasRiskIndicator rdf:resource="#Transaction_FRAUD003"/>
+        <rdfs:label>Suspicious Amount Risk</rdfs:label>
+    </SuspiciousAmount>
+
+    <!-- Fraud Detection Rules -->
+    <FraudDetectionRule rdf:about="#Rule_VelocityCheck">
+        <rdfs:label>Velocity Check Rule</rdfs:label>
+        <description>Flags accounts with more than 5 transactions in 10 minutes</description>
+    </FraudDetectionRule>
+
+    <FraudDetectionRule rdf:about="#Rule_GeoAnomaly">
+        <rdfs:label>Geographic Anomaly Rule</rdfs:label>
+        <description>Flags transactions from unusual locations</description>
+    </FraudDetectionRule>
+
+    <FraudDetectionRule rdf:about="#Rule_AmountAnomaly">
+        <rdfs:label>Amount Anomaly Rule</rdfs:label>
+        <description>Flags transactions with unusual amounts</description>
+    </FraudDetectionRule>
+
+    <!-- Fraud Cases -->
+    <IdentityTheftCase rdf:about="#Case_IDT001">
+        <caseID>CASE-IDT-001</caseID>
+        <severity>High</severity>
+        <description>Suspected identity theft using stolen credentials</description>
+        <financialLoss rdf:datatype="http://www.w3.org/2001/XMLSchema#float">9850.00</financialLoss>
+        <status>Under Investigation</status>
+        <involvedIn rdf:resource="#Fraudster_John_Doe"/>
+        <relatedTo rdf:resource="#Transaction_FRAUD001"/>
+        <relatedTo rdf:resource="#Transaction_FRAUD002"/>
+        <investigatedBy rdf:resource="#Investigator_Sarah_Williams"/>
+        <flaggedBy rdf:resource="#Rule_VelocityCheck"/>
+        <flaggedBy rdf:resource="#Rule_GeoAnomaly"/>
+        <rdfs:label>Identity Theft Case IDT-001</rdfs:label>
+    </IdentityTheftCase>
+
+    <MoneyLaunderingCase rdf:about="#Case_ML001">
+        <caseID>CASE-ML-001</caseID>
+        <severity>Critical</severity>
+        <description>Suspected money laundering through cryptocurrency</description>
+        <financialLoss rdf:datatype="http://www.w3.org/2001/XMLSchema#float">15000.00</financialLoss>
+        <status>Active Investigation</status>
+        <involvedIn rdf:resource="#Fraudster_Jane_Roe"/>
+        <involvedIn rdf:resource="#Fraudster_John_Doe"/>
+        <relatedTo rdf:resource="#Transaction_FRAUD003"/>
+        <investigatedBy rdf:resource="#Investigator_Michael_Brown"/>
+        <flaggedBy rdf:resource="#Rule_AmountAnomaly"/>
+        <rdfs:label>Money Laundering Case ML-001</rdfs:label>
+    </MoneyLaunderingCase>
+
+    <CreditCardFraudCase rdf:about="#Case_CCF001">
+        <caseID>CASE-CCF-001</caseID>
+        <severity>Medium</severity>
+        <description>Unauthorized credit card usage pattern detected</description>
+        <financialLoss rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3250.00</financialLoss>
+        <status>Resolved</status>
+        <investigatedBy rdf:resource="#Investigator_Sarah_Williams"/>
+        <flaggedBy rdf:resource="#Rule_VelocityCheck"/>
+        <rdfs:label>Credit Card Fraud Case CCF-001</rdfs:label>
+    </CreditCardFraudCase>
+
+    <!-- Additional Relationship Assertions -->
+    <rdf:Description rdf:about="#Fraudster_John_Doe">
+        <associatedWith rdf:resource="#Fraudster_Jane_Roe"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Investigator_Sarah_Williams">
+        <employedBy rdf:resource="#Org_FraudInvestigationUnit"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Investigator_Michael_Brown">
+        <employedBy rdf:resource="#Org_FraudInvestigationUnit"/>
+    </rdf:Description>
+
+</rdf:RDF>
