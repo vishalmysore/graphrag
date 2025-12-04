@@ -1,0 +1,480 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/supplychain#"
+     xml:base="http://www.semanticweb.org/supplychain"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/supplychain">
+        <rdfs:comment>Supply Chain Network Ontology for GraphRAG</rdfs:comment>
+        <rdfs:label>Supply Chain Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- OBJECT PROPERTIES -->
+    <owl:ObjectProperty rdf:about="#suppliesTo">
+        <rdfs:domain rdf:resource="#Supplier"/>
+        <rdfs:range rdf:resource="#Organization"/>
+        <rdfs:label>supplies to</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#manufactures">
+        <rdfs:domain rdf:resource="#Manufacturer"/>
+        <rdfs:range rdf:resource="#Product"/>
+        <rdfs:label>manufactures</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#shipsTo">
+        <rdfs:domain rdf:resource="#Distributor"/>
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>ships to</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#dependsOn">
+        <rdfs:domain rdf:resource="#Product"/>
+        <rdfs:range rdf:resource="#Component"/>
+        <rdfs:label>depends on</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#containsComponent">
+        <rdfs:domain rdf:resource="#Product"/>
+        <rdfs:range rdf:resource="#Component"/>
+        <rdfs:label>contains component</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#storedIn">
+        <rdfs:domain rdf:resource="#Product"/>
+        <rdfs:range rdf:resource="#Warehouse"/>
+        <rdfs:label>stored in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#orderedBy">
+        <rdfs:domain rdf:resource="#Order"/>
+        <rdfs:range rdf:resource="#Organization"/>
+        <rdfs:label>ordered by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#deliveredBy">
+        <rdfs:domain rdf:resource="#Shipment"/>
+        <rdfs:range rdf:resource="#Carrier"/>
+        <rdfs:label>delivered by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#locatedIn">
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>located in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#sourcedFrom">
+        <rdfs:domain rdf:resource="#Component"/>
+        <rdfs:range rdf:resource="#Supplier"/>
+        <rdfs:label>sourced from</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#partOfOrder">
+        <rdfs:domain rdf:resource="#Product"/>
+        <rdfs:range rdf:resource="#Order"/>
+        <rdfs:label>part of order</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#hasDisruption">
+        <rdfs:domain rdf:resource="#SupplyChainNode"/>
+        <rdfs:range rdf:resource="#Disruption"/>
+        <rdfs:label>has disruption</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- DATA PROPERTIES -->
+    <owl:DatatypeProperty rdf:about="#supplierID">
+        <rdfs:domain rdf:resource="#Supplier"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>supplier ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#organizationName">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>organization name</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#productID">
+        <rdfs:domain rdf:resource="#Product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>product ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#productName">
+        <rdfs:domain rdf:resource="#Product"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>product name</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#quantity">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>quantity</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#unitPrice">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>unit price</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#leadTime">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>lead time (days)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#riskLevel">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>risk level</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#country">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>country</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#orderDate">
+        <rdfs:domain rdf:resource="#Order"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>order date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#deliveryDate">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>delivery date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#status">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>status</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- CLASSES -->
+    <owl:Class rdf:about="#SupplyChainNode">
+        <rdfs:label>Supply Chain Node</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Organization">
+        <rdfs:subClassOf rdf:resource="#SupplyChainNode"/>
+        <rdfs:label>Organization</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Supplier">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <rdfs:label>Supplier</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#RawMaterialSupplier">
+        <rdfs:subClassOf rdf:resource="#Supplier"/>
+        <rdfs:label>Raw Material Supplier</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ComponentSupplier">
+        <rdfs:subClassOf rdf:resource="#Supplier"/>
+        <rdfs:label>Component Supplier</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Manufacturer">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <rdfs:label>Manufacturer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Distributor">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <rdfs:label>Distributor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Retailer">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <rdfs:label>Retailer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Carrier">
+        <rdfs:subClassOf rdf:resource="#Organization"/>
+        <rdfs:label>Carrier</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Warehouse">
+        <rdfs:subClassOf rdf:resource="#SupplyChainNode"/>
+        <rdfs:label>Warehouse</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Product">
+        <rdfs:label>Product</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FinishedProduct">
+        <rdfs:subClassOf rdf:resource="#Product"/>
+        <rdfs:label>Finished Product</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Component">
+        <rdfs:subClassOf rdf:resource="#Product"/>
+        <rdfs:label>Component</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ElectronicComponent">
+        <rdfs:subClassOf rdf:resource="#Component"/>
+        <rdfs:label>Electronic Component</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#MechanicalPart">
+        <rdfs:subClassOf rdf:resource="#Component"/>
+        <rdfs:label>Mechanical Part</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#RawMaterial">
+        <rdfs:label>Raw Material</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Order">
+        <rdfs:label>Order</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#PurchaseOrder">
+        <rdfs:subClassOf rdf:resource="#Order"/>
+        <rdfs:label>Purchase Order</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Shipment">
+        <rdfs:label>Shipment</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Location">
+        <rdfs:label>Location</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Disruption">
+        <rdfs:label>Disruption</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DelayDisruption">
+        <rdfs:subClassOf rdf:resource="#Disruption"/>
+        <rdfs:label>Delay Disruption</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ShortageDisruption">
+        <rdfs:subClassOf rdf:resource="#Disruption"/>
+        <rdfs:label>Shortage Disruption</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#QualityIssue">
+        <rdfs:subClassOf rdf:resource="#Disruption"/>
+        <rdfs:label>Quality Issue</rdfs:label>
+    </owl:Class>
+
+    <!-- INSTANCES -->
+    <RawMaterialSupplier rdf:about="#Supplier_SteelCorp">
+        <organizationName>SteelCorp Industries</organizationName>
+        <supplierID>SUP-001</supplierID>
+        <riskLevel>Low</riskLevel>
+        <country>USA</country>
+        <rdfs:label>SteelCorp Industries</rdfs:label>
+    </RawMaterialSupplier>
+
+    <ComponentSupplier rdf:about="#Supplier_ChipTech">
+        <organizationName>ChipTech Electronics</organizationName>
+        <supplierID>SUP-002</supplierID>
+        <riskLevel>High</riskLevel>
+        <country>Taiwan</country>
+        <rdfs:label>ChipTech Electronics</rdfs:label>
+    </ComponentSupplier>
+
+    <ComponentSupplier rdf:about="#Supplier_AutoParts">
+        <organizationName>AutoParts Global</organizationName>
+        <supplierID>SUP-003</supplierID>
+        <riskLevel>Medium</riskLevel>
+        <country>Germany</country>
+        <rdfs:label>AutoParts Global</rdfs:label>
+    </ComponentSupplier>
+
+    <Manufacturer rdf:about="#Manufacturer_TechCo">
+        <organizationName>TechCo Manufacturing</organizationName>
+        <country>USA</country>
+        <rdfs:label>TechCo Manufacturing</rdfs:label>
+    </Manufacturer>
+
+    <Manufacturer rdf:about="#Manufacturer_AutoMakers">
+        <organizationName>AutoMakers Inc</organizationName>
+        <country>USA</country>
+        <rdfs:label>AutoMakers Inc</rdfs:label>
+    </Manufacturer>
+
+    <Distributor rdf:about="#Distributor_GlobalLogistics">
+        <organizationName>Global Logistics</organizationName>
+        <country>USA</country>
+        <rdfs:label>Global Logistics</rdfs:label>
+    </Distributor>
+
+    <Retailer rdf:about="#Retailer_MegaStore">
+        <organizationName>MegaStore Retail</organizationName>
+        <country>USA</country>
+        <rdfs:label>MegaStore Retail</rdfs:label>
+    </Retailer>
+
+    <Carrier rdf:about="#Carrier_FastShip">
+        <organizationName>FastShip Logistics</organizationName>
+        <rdfs:label>FastShip Logistics</rdfs:label>
+    </Carrier>
+
+    <Warehouse rdf:about="#Warehouse_Central">
+        <organizationName>Central Warehouse</organizationName>
+        <country>USA</country>
+        <rdfs:label>Central Warehouse</rdfs:label>
+    </Warehouse>
+
+    <Warehouse rdf:about="#Warehouse_Regional">
+        <organizationName>Regional Distribution Center</organizationName>
+        <country>USA</country>
+        <rdfs:label>Regional Distribution Center</rdfs:label>
+    </Warehouse>
+
+    <ElectronicComponent rdf:about="#Component_Microchip">
+        <productName>Advanced Microchip</productName>
+        <productID>COMP-001</productID>
+        <unitPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#float">125.50</unitPrice>
+        <leadTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</leadTime>
+        <rdfs:label>Advanced Microchip</rdfs:label>
+    </ElectronicComponent>
+
+    <MechanicalPart rdf:about="#Component_EngineBlock">
+        <productName>Engine Block V8</productName>
+        <productID>COMP-002</productID>
+        <unitPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#float">850.00</unitPrice>
+        <leadTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</leadTime>
+        <rdfs:label>Engine Block V8</rdfs:label>
+    </MechanicalPart>
+
+    <ElectronicComponent rdf:about="#Component_Battery">
+        <productName>Lithium Battery Pack</productName>
+        <productID>COMP-003</productID>
+        <unitPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#float">450.00</unitPrice>
+        <leadTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">20</leadTime>
+        <rdfs:label>Lithium Battery Pack</rdfs:label>
+    </ElectronicComponent>
+
+    <FinishedProduct rdf:about="#Product_Laptop">
+        <productName>TechCo Laptop Pro</productName>
+        <productID>PROD-001</productID>
+        <unitPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1299.00</unitPrice>
+        <rdfs:label>TechCo Laptop Pro</rdfs:label>
+    </FinishedProduct>
+
+    <FinishedProduct rdf:about="#Product_ElectricCar">
+        <productName>EV Sedan 2025</productName>
+        <productID>PROD-002</productID>
+        <unitPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45000.00</unitPrice>
+        <rdfs:label>EV Sedan 2025</rdfs:label>
+    </FinishedProduct>
+
+    <PurchaseOrder rdf:about="#Order_PO1001">
+        <orderDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-01T10:00:00</orderDate>
+        <status>In Transit</status>
+        <quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">500</quantity>
+        <rdfs:label>Purchase Order PO-1001</rdfs:label>
+    </PurchaseOrder>
+
+    <PurchaseOrder rdf:about="#Order_PO1002">
+        <orderDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-15T14:30:00</orderDate>
+        <status>Delayed</status>
+        <quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">200</quantity>
+        <rdfs:label>Purchase Order PO-1002</rdfs:label>
+    </PurchaseOrder>
+
+    <Shipment rdf:about="#Shipment_SH2001">
+        <deliveryDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-12-10T09:00:00</deliveryDate>
+        <status>In Transit</status>
+        <rdfs:label>Shipment SH-2001</rdfs:label>
+    </Shipment>
+
+    <DelayDisruption rdf:about="#Disruption_ChipShortage">
+        <rdfs:label>Chip Shortage Delay</rdfs:label>
+        <riskLevel>Critical</riskLevel>
+    </DelayDisruption>
+
+    <ShortageDisruption rdf:about="#Disruption_BatteryShortage">
+        <rdfs:label>Battery Supply Shortage</rdfs:label>
+        <riskLevel>High</riskLevel>
+    </ShortageDisruption>
+
+    <Location rdf:about="#Location_USA">
+        <country>USA</country>
+        <rdfs:label>United States</rdfs:label>
+    </Location>
+
+    <Location rdf:about="#Location_Taiwan">
+        <country>Taiwan</country>
+        <rdfs:label>Taiwan</rdfs:label>
+    </Location>
+
+    <!-- Relationships -->
+    <rdf:Description rdf:about="#Supplier_ChipTech">
+        <suppliesTo rdf:resource="#Manufacturer_TechCo"/>
+        <locatedIn rdf:resource="#Location_Taiwan"/>
+        <hasDisruption rdf:resource="#Disruption_ChipShortage"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Supplier_AutoParts">
+        <suppliesTo rdf:resource="#Manufacturer_AutoMakers"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Supplier_SteelCorp">
+        <suppliesTo rdf:resource="#Manufacturer_AutoMakers"/>
+        <locatedIn rdf:resource="#Location_USA"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Manufacturer_TechCo">
+        <manufactures rdf:resource="#Product_Laptop"/>
+        <locatedIn rdf:resource="#Location_USA"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Manufacturer_AutoMakers">
+        <manufactures rdf:resource="#Product_ElectricCar"/>
+        <locatedIn rdf:resource="#Location_USA"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Product_Laptop">
+        <containsComponent rdf:resource="#Component_Microchip"/>
+        <containsComponent rdf:resource="#Component_Battery"/>
+        <storedIn rdf:resource="#Warehouse_Central"/>
+        <dependsOn rdf:resource="#Component_Microchip"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Product_ElectricCar">
+        <containsComponent rdf:resource="#Component_EngineBlock"/>
+        <containsComponent rdf:resource="#Component_Battery"/>
+        <dependsOn rdf:resource="#Component_Battery"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Component_Microchip">
+        <sourcedFrom rdf:resource="#Supplier_ChipTech"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Component_Battery">
+        <sourcedFrom rdf:resource="#Supplier_ChipTech"/>
+        <storedIn rdf:resource="#Warehouse_Regional"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Component_EngineBlock">
+        <sourcedFrom rdf:resource="#Supplier_AutoParts"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Order_PO1001">
+        <orderedBy rdf:resource="#Manufacturer_TechCo"/>
+        <partOfOrder rdf:resource="#Component_Microchip"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Order_PO1002">
+        <orderedBy rdf:resource="#Manufacturer_AutoMakers"/>
+        <partOfOrder rdf:resource="#Component_Battery"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Shipment_SH2001">
+        <deliveredBy rdf:resource="#Carrier_FastShip"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Distributor_GlobalLogistics">
+        <shipsTo rdf:resource="#Location_USA"/>
+    </rdf:Description>
+
+</rdf:RDF>

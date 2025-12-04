@@ -4,7 +4,7 @@
 <plugin name="Neo4j-Qdrant RAG Plugin" version="1.0.0">
     <extension id="RagQueryView" point="org.protege.editor.core.application.ViewComponent">
         <label value="GraphRAG"/>
-        <class value="com.protege.rag.RagQueryPanel"/>
+        <class value="org.vidyaastra.protege.rag.RagQueryPanel"/>
         <headerColor value="@org.protege.editor.owl.OWLEditorKit"/>
     </extension>
 </plugin>

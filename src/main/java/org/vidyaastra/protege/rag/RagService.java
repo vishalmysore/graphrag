@@ -1,4 +1,4 @@
-package com.protege.rag;
+package org.vidyaastra.protege.rag;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;

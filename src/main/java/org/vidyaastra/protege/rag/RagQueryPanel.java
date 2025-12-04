@@ -1,4 +1,4 @@
-package com.protege.rag;
+package org.vidyaastra.protege.rag;
 
 import org.protege.editor.owl.ui.view.AbstractOWLViewComponent;
 import org.slf4j.Logger;

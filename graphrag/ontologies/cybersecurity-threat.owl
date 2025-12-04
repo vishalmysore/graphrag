@@ -1,0 +1,492 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/cybersecurity#"
+     xml:base="http://www.semanticweb.org/cybersecurity"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/cybersecurity">
+        <rdfs:comment>Cybersecurity Threat Intelligence Ontology for GraphRAG</rdfs:comment>
+        <rdfs:label>Cybersecurity Threat Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- OBJECT PROPERTIES -->
+    <owl:ObjectProperty rdf:about="#exploits">
+        <rdfs:domain rdf:resource="#Threat"/>
+        <rdfs:range rdf:resource="#Vulnerability"/>
+        <rdfs:label>exploits</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#targets">
+        <rdfs:domain rdf:resource="#Attack"/>
+        <rdfs:range rdf:resource="#Asset"/>
+        <rdfs:label>targets</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#originatesFrom">
+        <rdfs:domain rdf:resource="#Attack"/>
+        <rdfs:range rdf:resource="#ThreatActor"/>
+        <rdfs:label>originates from</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#mitigatedBy">
+        <rdfs:domain rdf:resource="#Vulnerability"/>
+        <rdfs:range rdf:resource="#SecurityControl"/>
+        <rdfs:label>mitigated by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#usedIn">
+        <rdfs:domain rdf:resource="#Malware"/>
+        <rdfs:range rdf:resource="#Attack"/>
+        <rdfs:label>used in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#protectedBy">
+        <rdfs:domain rdf:resource="#Asset"/>
+        <rdfs:range rdf:resource="#SecurityControl"/>
+        <rdfs:label>protected by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#detectedBy">
+        <rdfs:domain rdf:resource="#Threat"/>
+        <rdfs:range rdf:resource="#DetectionTool"/>
+        <rdfs:label>detected by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#associatedWith">
+        <rdfs:label>associated with</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#communicatesWith">
+        <rdfs:domain rdf:resource="#Malware"/>
+        <rdfs:range rdf:resource="#CommandAndControlServer"/>
+        <rdfs:label>communicates with</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#hasIndicator">
+        <rdfs:domain rdf:resource="#Threat"/>
+        <rdfs:range rdf:resource="#IOC"/>
+        <rdfs:label>has indicator</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- DATA PROPERTIES -->
+    <owl:DatatypeProperty rdf:about="#cveID">
+        <rdfs:domain rdf:resource="#Vulnerability"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>CVE ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#cvssScore">
+        <rdfs:domain rdf:resource="#Vulnerability"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>CVSS score</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#severity">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>severity</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#ipAddress">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>IP address</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#fileHash">
+        <rdfs:domain rdf:resource="#Malware"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>file hash</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#malwareFamily">
+        <rdfs:domain rdf:resource="#Malware"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>malware family</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#attackTimestamp">
+        <rdfs:domain rdf:resource="#Attack"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>attack timestamp</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#description">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>description</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#threatLevel">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>threat level</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#assetValue">
+        <rdfs:domain rdf:resource="#Asset"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>asset value</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- CLASSES -->
+    <owl:Class rdf:about="#SecurityEntity">
+        <rdfs:label>Security Entity</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Threat">
+        <rdfs:subClassOf rdf:resource="#SecurityEntity"/>
+        <rdfs:label>Threat</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Malware">
+        <rdfs:subClassOf rdf:resource="#Threat"/>
+        <rdfs:label>Malware</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Ransomware">
+        <rdfs:subClassOf rdf:resource="#Malware"/>
+        <rdfs:label>Ransomware</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Trojan">
+        <rdfs:subClassOf rdf:resource="#Malware"/>
+        <rdfs:label>Trojan</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Spyware">
+        <rdfs:subClassOf rdf:resource="#Malware"/>
+        <rdfs:label>Spyware</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#APT">
+        <rdfs:subClassOf rdf:resource="#Threat"/>
+        <rdfs:label>Advanced Persistent Threat</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Vulnerability">
+        <rdfs:subClassOf rdf:resource="#SecurityEntity"/>
+        <rdfs:label>Vulnerability</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ZeroDayVulnerability">
+        <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+        <rdfs:label>Zero-Day Vulnerability</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#KnownVulnerability">
+        <rdfs:subClassOf rdf:resource="#Vulnerability"/>
+        <rdfs:label>Known Vulnerability</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Attack">
+        <rdfs:subClassOf rdf:resource="#SecurityEntity"/>
+        <rdfs:label>Attack</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#PhishingAttack">
+        <rdfs:subClassOf rdf:resource="#Attack"/>
+        <rdfs:label>Phishing Attack</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DDoSAttack">
+        <rdfs:subClassOf rdf:resource="#Attack"/>
+        <rdfs:label>DDoS Attack</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#SQLInjection">
+        <rdfs:subClassOf rdf:resource="#Attack"/>
+        <rdfs:label>SQL Injection</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#BruteForceAttack">
+        <rdfs:subClassOf rdf:resource="#Attack"/>
+        <rdfs:label>Brute Force Attack</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ThreatActor">
+        <rdfs:label>Threat Actor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#HackerGroup">
+        <rdfs:subClassOf rdf:resource="#ThreatActor"/>
+        <rdfs:label>Hacker Group</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#NationState">
+        <rdfs:subClassOf rdf:resource="#ThreatActor"/>
+        <rdfs:label>Nation State</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#InsiderThreat">
+        <rdfs:subClassOf rdf:resource="#ThreatActor"/>
+        <rdfs:label>Insider Threat</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Asset">
+        <rdfs:label>Asset</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Server">
+        <rdfs:subClassOf rdf:resource="#Asset"/>
+        <rdfs:label>Server</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Database">
+        <rdfs:subClassOf rdf:resource="#Asset"/>
+        <rdfs:label>Database</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#WebApplication">
+        <rdfs:subClassOf rdf:resource="#Asset"/>
+        <rdfs:label>Web Application</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#NetworkDevice">
+        <rdfs:subClassOf rdf:resource="#Asset"/>
+        <rdfs:label>Network Device</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#SecurityControl">
+        <rdfs:label>Security Control</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Firewall">
+        <rdfs:subClassOf rdf:resource="#SecurityControl"/>
+        <rdfs:label>Firewall</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#IDS">
+        <rdfs:subClassOf rdf:resource="#SecurityControl"/>
+        <rdfs:label>Intrusion Detection System</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Antivirus">
+        <rdfs:subClassOf rdf:resource="#SecurityControl"/>
+        <rdfs:label>Antivirus</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#WAF">
+        <rdfs:subClassOf rdf:resource="#SecurityControl"/>
+        <rdfs:label>Web Application Firewall</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#IOC">
+        <rdfs:label>Indicator of Compromise</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#IPIndicator">
+        <rdfs:subClassOf rdf:resource="#IOC"/>
+        <rdfs:label>IP Indicator</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FileHashIndicator">
+        <rdfs:subClassOf rdf:resource="#IOC"/>
+        <rdfs:label>File Hash Indicator</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DomainIndicator">
+        <rdfs:subClassOf rdf:resource="#IOC"/>
+        <rdfs:label>Domain Indicator</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DetectionTool">
+        <rdfs:label>Detection Tool</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#SIEM">
+        <rdfs:subClassOf rdf:resource="#DetectionTool"/>
+        <rdfs:label>SIEM System</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CommandAndControlServer">
+        <rdfs:label>Command and Control Server</rdfs:label>
+    </owl:Class>
+
+    <!-- INSTANCES -->
+    <Ransomware rdf:about="#Malware_WannaCry">
+        <rdfs:label>WannaCry Ransomware</rdfs:label>
+        <malwareFamily>WannaCry</malwareFamily>
+        <fileHash>ed01ebfbc9eb5bbea545af4d01bf5f1071661840480439c6e5babe8e080e41aa</fileHash>
+        <severity>Critical</severity>
+    </Ransomware>
+
+    <Trojan rdf:about="#Malware_Emotet">
+        <rdfs:label>Emotet Trojan</rdfs:label>
+        <malwareFamily>Emotet</malwareFamily>
+        <fileHash>4a5e09c7f98e77e19b8b8f8e9d9a8b7c6d5e4f3a2b1c0d9e8f7a6b5c4d3e2f1a</fileHash>
+        <severity>High</severity>
+    </Trojan>
+
+    <APT rdf:about="#Threat_APT28">
+        <rdfs:label>APT28 (Fancy Bear)</rdfs:label>
+        <threatLevel>Critical</threatLevel>
+        <description>Russian state-sponsored threat group</description>
+    </APT>
+
+    <ZeroDayVulnerability rdf:about="#Vuln_CVE_2024_9999">
+        <cveID>CVE-2024-9999</cveID>
+        <cvssScore rdf:datatype="http://www.w3.org/2001/XMLSchema#float">9.8</cvssScore>
+        <severity>Critical</severity>
+        <description>Remote code execution in web server</description>
+        <rdfs:label>CVE-2024-9999</rdfs:label>
+    </ZeroDayVulnerability>
+
+    <KnownVulnerability rdf:about="#Vuln_CVE_2023_1234">
+        <cveID>CVE-2023-1234</cveID>
+        <cvssScore rdf:datatype="http://www.w3.org/2001/XMLSchema#float">7.5</cvssScore>
+        <severity>High</severity>
+        <description>SQL injection vulnerability</description>
+        <rdfs:label>CVE-2023-1234</rdfs:label>
+    </KnownVulnerability>
+
+    <PhishingAttack rdf:about="#Attack_Phish_001">
+        <rdfs:label>Phishing Campaign 2024</rdfs:label>
+        <attackTimestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-15T08:30:00</attackTimestamp>
+        <severity>Medium</severity>
+        <description>Targeted phishing against finance department</description>
+    </PhishingAttack>
+
+    <DDoSAttack rdf:about="#Attack_DDoS_001">
+        <rdfs:label>DDoS Attack on Web Server</rdfs:label>
+        <attackTimestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-10-20T14:00:00</attackTimestamp>
+        <severity>High</severity>
+    </DDoSAttack>
+
+    <SQLInjection rdf:about="#Attack_SQLi_001">
+        <rdfs:label>SQL Injection Attempt</rdfs:label>
+        <attackTimestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-01T10:15:00</attackTimestamp>
+        <severity>High</severity>
+    </SQLInjection>
+
+    <HackerGroup rdf:about="#ThreatActor_Anonymous">
+        <rdfs:label>Anonymous Collective</rdfs:label>
+        <threatLevel>Medium</threatLevel>
+    </HackerGroup>
+
+    <NationState rdf:about="#ThreatActor_APT28_Group">
+        <rdfs:label>APT28 Group</rdfs:label>
+        <threatLevel>Critical</threatLevel>
+        <description>Russian state-sponsored group</description>
+    </NationState>
+
+    <Server rdf:about="#Asset_WebServer01">
+        <rdfs:label>Production Web Server 01</rdfs:label>
+        <ipAddress>192.168.1.100</ipAddress>
+        <assetValue>Critical</assetValue>
+    </Server>
+
+    <Database rdf:about="#Asset_CustomerDB">
+        <rdfs:label>Customer Database</rdfs:label>
+        <ipAddress>10.0.0.50</ipAddress>
+        <assetValue>Critical</assetValue>
+    </Database>
+
+    <WebApplication rdf:about="#Asset_EcommerceApp">
+        <rdfs:label>E-commerce Application</rdfs:label>
+        <assetValue>High</assetValue>
+    </WebApplication>
+
+    <Firewall rdf:about="#Control_Firewall01">
+        <rdfs:label>Network Firewall</rdfs:label>
+        <description>Perimeter firewall protecting internal network</description>
+    </Firewall>
+
+    <IDS rdf:about="#Control_IDS01">
+        <rdfs:label>Intrusion Detection System</rdfs:label>
+        <description>Network-based IDS monitoring traffic</description>
+    </IDS>
+
+    <WAF rdf:about="#Control_WAF01">
+        <rdfs:label>Web Application Firewall</rdfs:label>
+        <description>Protecting web applications</description>
+    </WAF>
+
+    <Antivirus rdf:about="#Control_AV01">
+        <rdfs:label>Enterprise Antivirus</rdfs:label>
+    </Antivirus>
+
+    <SIEM rdf:about="#Tool_Splunk">
+        <rdfs:label>Splunk SIEM</rdfs:label>
+        <description>Security information and event management</description>
+    </SIEM>
+
+    <IPIndicator rdf:about="#IOC_MaliciousIP">
+        <rdfs:label>Malicious IP Address</rdfs:label>
+        <ipAddress>45.123.45.67</ipAddress>
+        <threatLevel>High</threatLevel>
+    </IPIndicator>
+
+    <FileHashIndicator rdf:about="#IOC_MalwareHash">
+        <rdfs:label>Malware File Hash</rdfs:label>
+        <fileHash>ed01ebfbc9eb5bbea545af4d01bf5f1071661840480439c6e5babe8e080e41aa</fileHash>
+    </FileHashIndicator>
+
+    <DomainIndicator rdf:about="#IOC_MaliciousDomain">
+        <rdfs:label>Malicious Domain</rdfs:label>
+        <description>evil-command-server.com</description>
+        <threatLevel>Critical</threatLevel>
+    </DomainIndicator>
+
+    <CommandAndControlServer rdf:about="#C2_Server01">
+        <rdfs:label>C2 Server</rdfs:label>
+        <ipAddress>45.123.45.67</ipAddress>
+    </CommandAndControlServer>
+
+    <!-- Relationships -->
+    <rdf:Description rdf:about="#Malware_WannaCry">
+        <exploits rdf:resource="#Vuln_CVE_2023_1234"/>
+        <usedIn rdf:resource="#Attack_SQLi_001"/>
+        <hasIndicator rdf:resource="#IOC_MalwareHash"/>
+        <communicatesWith rdf:resource="#C2_Server01"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Malware_Emotet">
+        <usedIn rdf:resource="#Attack_Phish_001"/>
+        <hasIndicator rdf:resource="#IOC_MaliciousDomain"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Threat_APT28">
+        <exploits rdf:resource="#Vuln_CVE_2024_9999"/>
+        <detectedBy rdf:resource="#Tool_Splunk"/>
+        <associatedWith rdf:resource="#ThreatActor_APT28_Group"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Attack_DDoS_001">
+        <targets rdf:resource="#Asset_WebServer01"/>
+        <originatesFrom rdf:resource="#ThreatActor_Anonymous"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Attack_SQLi_001">
+        <targets rdf:resource="#Asset_CustomerDB"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Attack_Phish_001">
+        <originatesFrom rdf:resource="#ThreatActor_APT28_Group"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Vuln_CVE_2024_9999">
+        <mitigatedBy rdf:resource="#Control_WAF01"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Vuln_CVE_2023_1234">
+        <mitigatedBy rdf:resource="#Control_WAF01"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Asset_WebServer01">
+        <protectedBy rdf:resource="#Control_Firewall01"/>
+        <protectedBy rdf:resource="#Control_IDS01"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Asset_CustomerDB">
+        <protectedBy rdf:resource="#Control_Firewall01"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Asset_EcommerceApp">
+        <protectedBy rdf:resource="#Control_WAF01"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#IOC_MaliciousIP">
+        <associatedWith rdf:resource="#C2_Server01"/>
+    </rdf:Description>
+
+</rdf:RDF>

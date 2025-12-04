@@ -1,4 +1,4 @@
-package com.protege.rag;
+package org.vidyaastra.protege.rag;
 
 import org.protege.editor.core.prefs.Preferences;
 import org.protege.editor.core.prefs.PreferencesManager;

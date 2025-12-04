@@ -1,4 +1,4 @@
-package com.protege.rag;
+package org.vidyaastra.protege.rag;
 
 import org.neo4j.driver.*;
 import org.slf4j.Logger;
