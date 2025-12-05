@@ -1,0 +1,524 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/food#"
+     xml:base="http://www.semanticweb.org/food"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/food">
+        <rdfs:comment>Food Supply Chain and Agriculture Ontology for GraphRAG</rdfs:comment>
+        <rdfs:label>Food & Agriculture Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- OBJECT PROPERTIES -->
+    <owl:ObjectProperty rdf:about="#grows">
+        <rdfs:domain rdf:resource="#Farm"/>
+        <rdfs:range rdf:resource="#Crop"/>
+        <rdfs:label>grows</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#suppliedBy">
+        <rdfs:range rdf:resource="#Distributor"/>
+        <rdfs:label>supplied by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#containsIngredient">
+        <rdfs:domain rdf:resource="#Recipe"/>
+        <rdfs:range rdf:resource="#Ingredient"/>
+        <rdfs:label>contains ingredient</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#hasAllergen">
+        <rdfs:range rdf:resource="#Allergen"/>
+        <rdfs:label>has allergen</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#certifiedBy">
+        <rdfs:range rdf:resource="#Certification"/>
+        <rdfs:label>certified by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#serves">
+        <rdfs:domain rdf:resource="#Restaurant"/>
+        <rdfs:range rdf:resource="#Dish"/>
+        <rdfs:label>serves</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#specializedIn">
+        <rdfs:domain rdf:resource="#Restaurant"/>
+        <rdfs:range rdf:resource="#Cuisine"/>
+        <rdfs:label>specialized in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#preparedBy">
+        <rdfs:domain rdf:resource="#Dish"/>
+        <rdfs:range rdf:resource="#Chef"/>
+        <rdfs:label>prepared by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#ratedBy">
+        <rdfs:range rdf:resource="#Customer"/>
+        <rdfs:label>rated by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#locatedIn">
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>located in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#sourcedFrom">
+        <rdfs:domain rdf:resource="#Ingredient"/>
+        <rdfs:range rdf:resource="#Farm"/>
+        <rdfs:label>sourced from</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- DATA PROPERTIES -->
+    <owl:DatatypeProperty rdf:about="#farmID">
+        <rdfs:domain rdf:resource="#Farm"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>farm ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#acreage">
+        <rdfs:domain rdf:resource="#Farm"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>acreage</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#harvestDate">
+        <rdfs:domain rdf:resource="#Crop"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>harvest date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#quantity">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>quantity</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#unit">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>unit</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#nutritionalValue">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>nutritional value</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#rating">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>rating</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#price">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>price</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#preparationTime">
+        <rdfs:domain rdf:resource="#Recipe"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>preparation time (minutes)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#servings">
+        <rdfs:domain rdf:resource="#Recipe"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>servings</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#expirationDate">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>expiration date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#isOrganic">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#boolean"/>
+        <rdfs:label>is organic</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- CLASSES -->
+    <owl:Class rdf:about="#Farm">
+        <rdfs:label>Farm</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#OrganicFarm">
+        <rdfs:subClassOf rdf:resource="#Farm"/>
+        <rdfs:label>Organic Farm</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DairyFarm">
+        <rdfs:subClassOf rdf:resource="#Farm"/>
+        <rdfs:label>Dairy Farm</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Crop">
+        <rdfs:label>Crop</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Vegetable">
+        <rdfs:subClassOf rdf:resource="#Crop"/>
+        <rdfs:label>Vegetable</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Fruit">
+        <rdfs:subClassOf rdf:resource="#Crop"/>
+        <rdfs:label>Fruit</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Grain">
+        <rdfs:subClassOf rdf:resource="#Crop"/>
+        <rdfs:label>Grain</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Tomato">
+        <rdfs:subClassOf rdf:resource="#Vegetable"/>
+        <rdfs:label>Tomato</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Apple">
+        <rdfs:subClassOf rdf:resource="#Fruit"/>
+        <rdfs:label>Apple</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Wheat">
+        <rdfs:subClassOf rdf:resource="#Grain"/>
+        <rdfs:label>Wheat</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Distributor">
+        <rdfs:label>Distributor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Restaurant">
+        <rdfs:label>Restaurant</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FastFoodRestaurant">
+        <rdfs:subClassOf rdf:resource="#Restaurant"/>
+        <rdfs:label>Fast Food Restaurant</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FineDiningRestaurant">
+        <rdfs:subClassOf rdf:resource="#Restaurant"/>
+        <rdfs:label>Fine Dining Restaurant</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Ingredient">
+        <rdfs:label>Ingredient</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#OrganicIngredient">
+        <rdfs:subClassOf rdf:resource="#Ingredient"/>
+        <rdfs:label>Organic Ingredient</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Recipe">
+        <rdfs:label>Recipe</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#VegetarianRecipe">
+        <rdfs:subClassOf rdf:resource="#Recipe"/>
+        <rdfs:label>Vegetarian Recipe</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#VeganRecipe">
+        <rdfs:subClassOf rdf:resource="#Recipe"/>
+        <rdfs:label>Vegan Recipe</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#GlutenFreeRecipe">
+        <rdfs:subClassOf rdf:resource="#Recipe"/>
+        <rdfs:label>Gluten-Free Recipe</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Allergen">
+        <rdfs:label>Allergen</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Certification">
+        <rdfs:label>Certification</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#OrganicCertification">
+        <rdfs:subClassOf rdf:resource="#Certification"/>
+        <rdfs:label>Organic Certification</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Person">
+        <rdfs:label>Person</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Chef">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Chef</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ExecutiveChef">
+        <rdfs:subClassOf rdf:resource="#Chef"/>
+        <rdfs:label>Executive Chef</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Customer">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Customer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Cuisine">
+        <rdfs:label>Cuisine</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ItalianCuisine">
+        <rdfs:subClassOf rdf:resource="#Cuisine"/>
+        <rdfs:label>Italian Cuisine</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#JapaneseCuisine">
+        <rdfs:subClassOf rdf:resource="#Cuisine"/>
+        <rdfs:label>Japanese Cuisine</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#MexicanCuisine">
+        <rdfs:subClassOf rdf:resource="#Cuisine"/>
+        <rdfs:label>Mexican Cuisine</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Dish">
+        <rdfs:label>Dish</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Location">
+        <rdfs:label>Location</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Review">
+        <rdfs:label>Review</rdfs:label>
+    </owl:Class>
+
+    <!-- INSTANCES -->
+    <OrganicFarm rdf:about="#Farm_GreenAcres">
+        <rdfs:label>Green Acres Organic Farm</rdfs:label>
+        <farmID>FARM-001</farmID>
+        <acreage rdf:datatype="http://www.w3.org/2001/XMLSchema#float">250.5</acreage>
+        <isOrganic rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOrganic>
+    </OrganicFarm>
+
+    <Farm rdf:about="#Farm_SunnyFields">
+        <rdfs:label>Sunny Fields Farm</rdfs:label>
+        <farmID>FARM-002</farmID>
+        <acreage rdf:datatype="http://www.w3.org/2001/XMLSchema#float">180.0</acreage>
+        <isOrganic rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">false</isOrganic>
+    </Farm>
+
+    <DairyFarm rdf:about="#Farm_HappyCows">
+        <rdfs:label>Happy Cows Dairy</rdfs:label>
+        <farmID>FARM-003</farmID>
+        <acreage rdf:datatype="http://www.w3.org/2001/XMLSchema#float">120.0</acreage>
+    </DairyFarm>
+
+    <Tomato rdf:about="#Crop_Tomato001">
+        <rdfs:label>Organic Tomatoes</rdfs:label>
+        <harvestDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-08-15T00:00:00</harvestDate>
+        <quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500.0</quantity>
+        <unit>kg</unit>
+        <isOrganic rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOrganic>
+    </Tomato>
+
+    <Apple rdf:about="#Crop_Apple001">
+        <rdfs:label>Fuji Apples</rdfs:label>
+        <harvestDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-09-20T00:00:00</harvestDate>
+        <quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#float">800.0</quantity>
+        <unit>kg</unit>
+    </Apple>
+
+    <Wheat rdf:about="#Crop_Wheat001">
+        <rdfs:label>Winter Wheat</rdfs:label>
+        <harvestDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-07-10T00:00:00</harvestDate>
+        <quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#float">2000.0</quantity>
+        <unit>kg</unit>
+    </Wheat>
+
+    <Distributor rdf:about="#Distributor_FreshFoods">
+        <rdfs:label>Fresh Foods Distribution Co.</rdfs:label>
+    </Distributor>
+
+    <Distributor rdf:about="#Distributor_OrganicSupply">
+        <rdfs:label>Organic Supply Chain Inc.</rdfs:label>
+    </Distributor>
+
+    <FineDiningRestaurant rdf:about="#Restaurant_LaBella">
+        <rdfs:label>La Bella Vita</rdfs:label>
+        <rating rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.8</rating>
+    </FineDiningRestaurant>
+
+    <Restaurant rdf:about="#Restaurant_SushiHouse">
+        <rdfs:label>Sushi House</rdfs:label>
+        <rating rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.5</rating>
+    </Restaurant>
+
+    <FastFoodRestaurant rdf:about="#Restaurant_TacoStop">
+        <rdfs:label>Taco Stop</rdfs:label>
+        <rating rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.2</rating>
+    </FastFoodRestaurant>
+
+    <ItalianCuisine rdf:about="#Cuisine_Italian">
+        <rdfs:label>Italian</rdfs:label>
+    </ItalianCuisine>
+
+    <JapaneseCuisine rdf:about="#Cuisine_Japanese">
+        <rdfs:label>Japanese</rdfs:label>
+    </JapaneseCuisine>
+
+    <MexicanCuisine rdf:about="#Cuisine_Mexican">
+        <rdfs:label>Mexican</rdfs:label>
+    </MexicanCuisine>
+
+    <ExecutiveChef rdf:about="#Chef_MarioRossi">
+        <rdfs:label>Chef Mario Rossi</rdfs:label>
+    </ExecutiveChef>
+
+    <Chef rdf:about="#Chef_YukiTanaka">
+        <rdfs:label>Chef Yuki Tanaka</rdfs:label>
+    </Chef>
+
+    <Dish rdf:about="#Dish_MargheritaPizza">
+        <rdfs:label>Margherita Pizza</rdfs:label>
+        <price rdf:datatype="http://www.w3.org/2001/XMLSchema#float">18.50</price>
+    </Dish>
+
+    <Dish rdf:about="#Dish_Sushi">
+        <rdfs:label>Salmon Sushi Roll</rdfs:label>
+        <price rdf:datatype="http://www.w3.org/2001/XMLSchema#float">22.00</price>
+    </Dish>
+
+    <Dish rdf:about="#Dish_TacoPlatter">
+        <rdfs:label>Taco Platter</rdfs:label>
+        <price rdf:datatype="http://www.w3.org/2001/XMLSchema#float">12.99</price>
+    </Dish>
+
+    <OrganicIngredient rdf:about="#Ingredient_OrganicTomato">
+        <rdfs:label>Organic Tomato</rdfs:label>
+        <isOrganic rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOrganic>
+        <nutritionalValue>Vitamin C, Lycopene</nutritionalValue>
+    </OrganicIngredient>
+
+    <Ingredient rdf:about="#Ingredient_Mozzarella">
+        <rdfs:label>Fresh Mozzarella</rdfs:label>
+        <nutritionalValue>Calcium, Protein</nutritionalValue>
+    </Ingredient>
+
+    <Ingredient rdf:about="#Ingredient_BasilLeaves">
+        <rdfs:label>Fresh Basil</rdfs:label>
+        <isOrganic rdf:datatype="http://www.w3.org/2001/XMLSchema#boolean">true</isOrganic>
+    </Ingredient>
+
+    <VegetarianRecipe rdf:about="#Recipe_MargheritaPizza">
+        <rdfs:label>Margherita Pizza Recipe</rdfs:label>
+        <preparationTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</preparationTime>
+        <servings rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</servings>
+    </VegetarianRecipe>
+
+    <GlutenFreeRecipe rdf:about="#Recipe_GlutenFreeSushi">
+        <rdfs:label>Gluten-Free Sushi Recipe</rdfs:label>
+        <preparationTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">30</preparationTime>
+        <servings rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</servings>
+    </GlutenFreeRecipe>
+
+    <Allergen rdf:about="#Allergen_Gluten">
+        <rdfs:label>Gluten</rdfs:label>
+    </Allergen>
+
+    <Allergen rdf:about="#Allergen_Dairy">
+        <rdfs:label>Dairy</rdfs:label>
+    </Allergen>
+
+    <Allergen rdf:about="#Allergen_Shellfish">
+        <rdfs:label>Shellfish</rdfs:label>
+    </Allergen>
+
+    <OrganicCertification rdf:about="#Cert_USDA">
+        <rdfs:label>USDA Organic</rdfs:label>
+    </OrganicCertification>
+
+    <Certification rdf:about="#Cert_NonGMO">
+        <rdfs:label>Non-GMO Verified</rdfs:label>
+    </Certification>
+
+    <Customer rdf:about="#Customer_JohnSmith">
+        <rdfs:label>John Smith</rdfs:label>
+    </Customer>
+
+    <Location rdf:about="#Location_Downtown">
+        <rdfs:label>Downtown District</rdfs:label>
+    </Location>
+
+    <!-- Relationships -->
+    <rdf:Description rdf:about="#Farm_GreenAcres">
+        <grows rdf:resource="#Crop_Tomato001"/>
+        <grows rdf:resource="#Crop_Apple001"/>
+        <certifiedBy rdf:resource="#Cert_USDA"/>
+        <locatedIn rdf:resource="#Location_Downtown"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Farm_SunnyFields">
+        <grows rdf:resource="#Crop_Wheat001"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Crop_Tomato001">
+        <suppliedBy rdf:resource="#Distributor_OrganicSupply"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Crop_Apple001">
+        <suppliedBy rdf:resource="#Distributor_FreshFoods"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Crop_Wheat001">
+        <suppliedBy rdf:resource="#Distributor_FreshFoods"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Restaurant_LaBella">
+        <serves rdf:resource="#Dish_MargheritaPizza"/>
+        <specializedIn rdf:resource="#Cuisine_Italian"/>
+        <locatedIn rdf:resource="#Location_Downtown"/>
+        <ratedBy rdf:resource="#Customer_JohnSmith"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Restaurant_SushiHouse">
+        <serves rdf:resource="#Dish_Sushi"/>
+        <specializedIn rdf:resource="#Cuisine_Japanese"/>
+        <locatedIn rdf:resource="#Location_Downtown"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Restaurant_TacoStop">
+        <serves rdf:resource="#Dish_TacoPlatter"/>
+        <specializedIn rdf:resource="#Cuisine_Mexican"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Dish_MargheritaPizza">
+        <preparedBy rdf:resource="#Chef_MarioRossi"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Dish_Sushi">
+        <preparedBy rdf:resource="#Chef_YukiTanaka"/>
+        <hasAllergen rdf:resource="#Allergen_Shellfish"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Recipe_MargheritaPizza">
+        <containsIngredient rdf:resource="#Ingredient_OrganicTomato"/>
+        <containsIngredient rdf:resource="#Ingredient_Mozzarella"/>
+        <containsIngredient rdf:resource="#Ingredient_BasilLeaves"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Ingredient_OrganicTomato">
+        <sourcedFrom rdf:resource="#Farm_GreenAcres"/>
+        <certifiedBy rdf:resource="#Cert_USDA"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Ingredient_Mozzarella">
+        <hasAllergen rdf:resource="#Allergen_Dairy"/>
+    </rdf:Description>
+
+</rdf:RDF>

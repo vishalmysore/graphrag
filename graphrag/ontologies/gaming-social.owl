@@ -1,0 +1,490 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/gaming#"
+     xml:base="http://www.semanticweb.org/gaming"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/gaming">
+        <rdfs:comment>Gaming Social Network Ontology for GraphRAG</rdfs:comment>
+        <rdfs:label>Gaming Social Network Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- OBJECT PROPERTIES -->
+    <owl:ObjectProperty rdf:about="#owns">
+        <rdfs:domain rdf:resource="#Player"/>
+        <rdfs:range rdf:resource="#Game"/>
+        <rdfs:label>owns</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#achievedIn">
+        <rdfs:domain rdf:resource="#Achievement"/>
+        <rdfs:range rdf:resource="#Game"/>
+        <rdfs:label>achieved in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#memberOf">
+        <rdfs:domain rdf:resource="#Player"/>
+        <rdfs:range rdf:resource="#Clan"/>
+        <rdfs:label>member of</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#participatedIn">
+        <rdfs:domain rdf:resource="#Player"/>
+        <rdfs:range rdf:resource="#Match"/>
+        <rdfs:label>participated in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#equippedWith">
+        <rdfs:domain rdf:resource="#Character"/>
+        <rdfs:range rdf:resource="#Item"/>
+        <rdfs:label>equipped with</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#controlsCharacter">
+        <rdfs:domain rdf:resource="#Player"/>
+        <rdfs:range rdf:resource="#Character"/>
+        <rdfs:label>controls character</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#competesIn">
+        <rdfs:domain rdf:resource="#Player"/>
+        <rdfs:range rdf:resource="#Tournament"/>
+        <rdfs:label>competes in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#friendsWith">
+        <rdfs:domain rdf:resource="#Player"/>
+        <rdfs:range rdf:resource="#Player"/>
+        <rdfs:label>friends with</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#wonPrize">
+        <rdfs:domain rdf:resource="#Player"/>
+        <rdfs:range rdf:resource="#Prize"/>
+        <rdfs:label>won prize</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#developedBy">
+        <rdfs:domain rdf:resource="#Game"/>
+        <rdfs:range rdf:resource="#Developer"/>
+        <rdfs:label>developed by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#belongsToGenre">
+        <rdfs:domain rdf:resource="#Game"/>
+        <rdfs:range rdf:resource="#Genre"/>
+        <rdfs:label>belongs to genre</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- DATA PROPERTIES -->
+    <owl:DatatypeProperty rdf:about="#playerID">
+        <rdfs:domain rdf:resource="#Player"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>player ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#gamertag">
+        <rdfs:domain rdf:resource="#Player"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>gamertag</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#level">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>level</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#score">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>score</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#playTime">
+        <rdfs:domain rdf:resource="#Player"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>play time (hours)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#achievementDate">
+        <rdfs:domain rdf:resource="#Achievement"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>achievement date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#matchDate">
+        <rdfs:domain rdf:resource="#Match"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>match date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#rarity">
+        <rdfs:domain rdf:resource="#Item"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>rarity</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#releaseDate">
+        <rdfs:domain rdf:resource="#Game"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>release date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#rating">
+        <rdfs:domain rdf:resource="#Game"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>rating</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#prizeAmount">
+        <rdfs:domain rdf:resource="#Prize"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>prize amount</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#clanTag">
+        <rdfs:domain rdf:resource="#Clan"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>clan tag</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- CLASSES -->
+    <owl:Class rdf:about="#Player">
+        <rdfs:label>Player</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CasualPlayer">
+        <rdfs:subClassOf rdf:resource="#Player"/>
+        <rdfs:label>Casual Player</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ProPlayer">
+        <rdfs:subClassOf rdf:resource="#Player"/>
+        <rdfs:label>Professional Player</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Streamer">
+        <rdfs:subClassOf rdf:resource="#Player"/>
+        <rdfs:label>Streamer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Game">
+        <rdfs:label>Game</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#RPG">
+        <rdfs:subClassOf rdf:resource="#Game"/>
+        <rdfs:label>RPG</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FPS">
+        <rdfs:subClassOf rdf:resource="#Game"/>
+        <rdfs:label>First-Person Shooter</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#MOBA">
+        <rdfs:subClassOf rdf:resource="#Game"/>
+        <rdfs:label>MOBA</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#MMO">
+        <rdfs:subClassOf rdf:resource="#Game"/>
+        <rdfs:label>MMO</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Achievement">
+        <rdfs:label>Achievement</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#RareAchievement">
+        <rdfs:subClassOf rdf:resource="#Achievement"/>
+        <rdfs:label>Rare Achievement</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Clan">
+        <rdfs:label>Clan</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CompetitiveClan">
+        <rdfs:subClassOf rdf:resource="#Clan"/>
+        <rdfs:label>Competitive Clan</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Match">
+        <rdfs:label>Match</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#RankedMatch">
+        <rdfs:subClassOf rdf:resource="#Match"/>
+        <rdfs:label>Ranked Match</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CasualMatch">
+        <rdfs:subClassOf rdf:resource="#Match"/>
+        <rdfs:label>Casual Match</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Character">
+        <rdfs:label>Character</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Warrior">
+        <rdfs:subClassOf rdf:resource="#Character"/>
+        <rdfs:label>Warrior</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Mage">
+        <rdfs:subClassOf rdf:resource="#Character"/>
+        <rdfs:label>Mage</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Archer">
+        <rdfs:subClassOf rdf:resource="#Character"/>
+        <rdfs:label>Archer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Item">
+        <rdfs:label>Item</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Weapon">
+        <rdfs:subClassOf rdf:resource="#Item"/>
+        <rdfs:label>Weapon</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Armor">
+        <rdfs:subClassOf rdf:resource="#Item"/>
+        <rdfs:label>Armor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#LegendaryItem">
+        <rdfs:subClassOf rdf:resource="#Item"/>
+        <rdfs:label>Legendary Item</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Tournament">
+        <rdfs:label>Tournament</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#EsportsTournament">
+        <rdfs:subClassOf rdf:resource="#Tournament"/>
+        <rdfs:label>Esports Tournament</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Prize">
+        <rdfs:label>Prize</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Developer">
+        <rdfs:label>Developer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Genre">
+        <rdfs:label>Genre</rdfs:label>
+    </owl:Class>
+
+    <!-- INSTANCES -->
+    <ProPlayer rdf:about="#Player_DragonSlayer">
+        <rdfs:label>DragonSlayer</rdfs:label>
+        <gamertag>DragonSlayer#0001</gamertag>
+        <playerID>PLR-12345</playerID>
+        <level rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">150</level>
+        <playTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2500</playTime>
+    </ProPlayer>
+
+    <Streamer rdf:about="#Player_NinjaGamer">
+        <rdfs:label>NinjaGamer</rdfs:label>
+        <gamertag>NinjaGamer#9999</gamertag>
+        <playerID>PLR-67890</playerID>
+        <level rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">120</level>
+        <playTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3000</playTime>
+    </Streamer>
+
+    <CasualPlayer rdf:about="#Player_CasualJoe">
+        <rdfs:label>CasualJoe</rdfs:label>
+        <gamertag>CasualJoe#5555</gamertag>
+        <playerID>PLR-11111</playerID>
+        <level rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">45</level>
+        <playTime rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">250</playTime>
+    </CasualPlayer>
+
+    <Developer rdf:about="#Dev_EpicGames">
+        <rdfs:label>Epic Games</rdfs:label>
+    </Developer>
+
+    <Developer rdf:about="#Dev_RiotGames">
+        <rdfs:label>Riot Games</rdfs:label>
+    </Developer>
+
+    <Developer rdf:about="#Dev_Blizzard">
+        <rdfs:label>Blizzard Entertainment</rdfs:label>
+    </Developer>
+
+    <FPS rdf:about="#Game_Valorant">
+        <rdfs:label>Valorant</rdfs:label>
+        <releaseDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2020-06-02T00:00:00</releaseDate>
+        <rating rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.5</rating>
+    </FPS>
+
+    <MOBA rdf:about="#Game_LeagueOfLegends">
+        <rdfs:label>League of Legends</rdfs:label>
+        <releaseDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2009-10-27T00:00:00</releaseDate>
+        <rating rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.7</rating>
+    </MOBA>
+
+    <MMO rdf:about="#Game_WorldOfWarcraft">
+        <rdfs:label>World of Warcraft</rdfs:label>
+        <releaseDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2004-11-23T00:00:00</releaseDate>
+        <rating rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.8</rating>
+    </MMO>
+
+    <RPG rdf:about="#Game_EldenRing">
+        <rdfs:label>Elden Ring</rdfs:label>
+        <releaseDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2022-02-25T00:00:00</releaseDate>
+        <rating rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.9</rating>
+    </RPG>
+
+    <Genre rdf:about="#Genre_Action">
+        <rdfs:label>Action</rdfs:label>
+    </Genre>
+
+    <Genre rdf:about="#Genre_Strategy">
+        <rdfs:label>Strategy</rdfs:label>
+    </Genre>
+
+    <RareAchievement rdf:about="#Achievement_FirstBlood">
+        <rdfs:label>First Blood Master</rdfs:label>
+        <achievementDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-08-15T19:30:00</achievementDate>
+    </RareAchievement>
+
+    <Achievement rdf:about="#Achievement_100Wins">
+        <rdfs:label>Century of Victories</rdfs:label>
+        <achievementDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-10-20T12:00:00</achievementDate>
+    </Achievement>
+
+    <CompetitiveClan rdf:about="#Clan_EliteSnipers">
+        <rdfs:label>Elite Snipers</rdfs:label>
+        <clanTag>[ES]</clanTag>
+        <level rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">25</level>
+    </CompetitiveClan>
+
+    <Clan rdf:about="#Clan_CasualGamers">
+        <rdfs:label>Casual Gamers United</rdfs:label>
+        <clanTag>[CGU]</clanTag>
+        <level rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">10</level>
+    </Clan>
+
+    <RankedMatch rdf:about="#Match_Finals2024">
+        <rdfs:label>Championship Finals Match</rdfs:label>
+        <matchDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-11-15T20:00:00</matchDate>
+        <score rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2500</score>
+    </RankedMatch>
+
+    <CasualMatch rdf:about="#Match_Casual001">
+        <rdfs:label>Casual Match #001</rdfs:label>
+        <matchDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-12-01T18:00:00</matchDate>
+        <score rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">1500</score>
+    </CasualMatch>
+
+    <Warrior rdf:about="#Character_Thorin">
+        <rdfs:label>Thorin the Brave</rdfs:label>
+        <level rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">80</level>
+    </Warrior>
+
+    <Mage rdf:about="#Character_Gandara">
+        <rdfs:label>Gandara the Wise</rdfs:label>
+        <level rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">75</level>
+    </Mage>
+
+    <Archer rdf:about="#Character_Legolas">
+        <rdfs:label>Legolas Swift</rdfs:label>
+        <level rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">70</level>
+    </Archer>
+
+    <LegendaryItem rdf:about="#Item_Excalibur">
+        <rdfs:label>Excalibur Sword</rdfs:label>
+        <rarity>Legendary</rarity>
+    </LegendaryItem>
+
+    <Weapon rdf:about="#Item_BowOfLight">
+        <rdfs:label>Bow of Light</rdfs:label>
+        <rarity>Epic</rarity>
+    </Weapon>
+
+    <Armor rdf:about="#Item_DragonPlate">
+        <rdfs:label>Dragon Plate Armor</rdfs:label>
+        <rarity>Legendary</rarity>
+    </Armor>
+
+    <EsportsTournament rdf:about="#Tournament_WorldChampionship">
+        <rdfs:label>World Championship 2024</rdfs:label>
+    </EsportsTournament>
+
+    <Prize rdf:about="#Prize_FirstPlace">
+        <rdfs:label>First Place Prize</rdfs:label>
+        <prizeAmount rdf:datatype="http://www.w3.org/2001/XMLSchema#float">100000.00</prizeAmount>
+    </Prize>
+
+    <!-- Relationships -->
+    <rdf:Description rdf:about="#Player_DragonSlayer">
+        <owns rdf:resource="#Game_Valorant"/>
+        <owns rdf:resource="#Game_LeagueOfLegends"/>
+        <memberOf rdf:resource="#Clan_EliteSnipers"/>
+        <participatedIn rdf:resource="#Match_Finals2024"/>
+        <controlsCharacter rdf:resource="#Character_Thorin"/>
+        <competesIn rdf:resource="#Tournament_WorldChampionship"/>
+        <friendsWith rdf:resource="#Player_NinjaGamer"/>
+        <wonPrize rdf:resource="#Prize_FirstPlace"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Player_NinjaGamer">
+        <owns rdf:resource="#Game_WorldOfWarcraft"/>
+        <owns rdf:resource="#Game_EldenRing"/>
+        <memberOf rdf:resource="#Clan_EliteSnipers"/>
+        <participatedIn rdf:resource="#Match_Finals2024"/>
+        <controlsCharacter rdf:resource="#Character_Gandara"/>
+        <friendsWith rdf:resource="#Player_DragonSlayer"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Player_CasualJoe">
+        <owns rdf:resource="#Game_Valorant"/>
+        <memberOf rdf:resource="#Clan_CasualGamers"/>
+        <participatedIn rdf:resource="#Match_Casual001"/>
+        <controlsCharacter rdf:resource="#Character_Legolas"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Game_Valorant">
+        <developedBy rdf:resource="#Dev_RiotGames"/>
+        <belongsToGenre rdf:resource="#Genre_Action"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Game_LeagueOfLegends">
+        <developedBy rdf:resource="#Dev_RiotGames"/>
+        <belongsToGenre rdf:resource="#Genre_Strategy"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Game_WorldOfWarcraft">
+        <developedBy rdf:resource="#Dev_Blizzard"/>
+        <belongsToGenre rdf:resource="#Genre_Action"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Achievement_FirstBlood">
+        <achievedIn rdf:resource="#Game_Valorant"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Achievement_100Wins">
+        <achievedIn rdf:resource="#Game_LeagueOfLegends"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Character_Thorin">
+        <equippedWith rdf:resource="#Item_Excalibur"/>
+        <equippedWith rdf:resource="#Item_DragonPlate"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Character_Legolas">
+        <equippedWith rdf:resource="#Item_BowOfLight"/>
+    </rdf:Description>
+
+</rdf:RDF>

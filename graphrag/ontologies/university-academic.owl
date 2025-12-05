@@ -1,0 +1,337 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/university#"
+     xml:base="http://www.semanticweb.org/university"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/university">
+        <rdfs:comment>University Academic System Ontology for GraphRAG</rdfs:comment>
+        <rdfs:label>University Academic Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- OBJECT PROPERTIES -->
+    <owl:ObjectProperty rdf:about="#enrolledIn">
+        <rdfs:domain rdf:resource="#Student"/>
+        <rdfs:range rdf:resource="#Course"/>
+        <rdfs:label>enrolled in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#teaches">
+        <rdfs:domain rdf:resource="#Professor"/>
+        <rdfs:range rdf:resource="#Course"/>
+        <rdfs:label>teaches</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#authoredBy">
+        <rdfs:domain rdf:resource="#Publication"/>
+        <rdfs:range rdf:resource="#Researcher"/>
+        <rdfs:label>authored by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#supervisedBy">
+        <rdfs:domain rdf:resource="#Student"/>
+        <rdfs:range rdf:resource="#Professor"/>
+        <rdfs:label>supervised by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#fundedBy">
+        <rdfs:domain rdf:resource="#ResearchProject"/>
+        <rdfs:range rdf:resource="#Grant"/>
+        <rdfs:label>funded by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#collaboratesWith">
+        <rdfs:domain rdf:resource="#Researcher"/>
+        <rdfs:range rdf:resource="#Researcher"/>
+        <rdfs:label>collaborates with</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#belongsToDepartment">
+        <rdfs:range rdf:resource="#Department"/>
+        <rdfs:label>belongs to department</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#pursuingDegree">
+        <rdfs:domain rdf:resource="#Student"/>
+        <rdfs:range rdf:resource="#Degree"/>
+        <rdfs:label>pursuing degree</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#participatesIn">
+        <rdfs:range rdf:resource="#ResearchProject"/>
+        <rdfs:label>participates in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#citedBy">
+        <rdfs:domain rdf:resource="#Publication"/>
+        <rdfs:range rdf:resource="#Publication"/>
+        <rdfs:label>cited by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- DATA PROPERTIES -->
+    <owl:DatatypeProperty rdf:about="#studentID">
+        <rdfs:domain rdf:resource="#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>student ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#fullName">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>full name</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#gpa">
+        <rdfs:domain rdf:resource="#Student"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>GPA</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#courseCode">
+        <rdfs:domain rdf:resource="#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>course code</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#credits">
+        <rdfs:domain rdf:resource="#Course"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>credits</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#publicationYear">
+        <rdfs:domain rdf:resource="#Publication"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>publication year</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#grantAmount">
+        <rdfs:domain rdf:resource="#Grant"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>grant amount</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#researchArea">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>research area</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- CLASSES -->
+    <owl:Class rdf:about="#Person">
+        <rdfs:label>Person</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Student">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Student</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#GraduateStudent">
+        <rdfs:subClassOf rdf:resource="#Student"/>
+        <rdfs:label>Graduate Student</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#UndergraduateStudent">
+        <rdfs:subClassOf rdf:resource="#Student"/>
+        <rdfs:label>Undergraduate Student</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#PhDStudent">
+        <rdfs:subClassOf rdf:resource="#GraduateStudent"/>
+        <rdfs:label>PhD Student</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Researcher">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Researcher</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Professor">
+        <rdfs:subClassOf rdf:resource="#Researcher"/>
+        <rdfs:label>Professor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#AssistantProfessor">
+        <rdfs:subClassOf rdf:resource="#Professor"/>
+        <rdfs:label>Assistant Professor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FullProfessor">
+        <rdfs:subClassOf rdf:resource="#Professor"/>
+        <rdfs:label>Full Professor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Department">
+        <rdfs:label>Department</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ComputerScience">
+        <rdfs:subClassOf rdf:resource="#Department"/>
+        <rdfs:label>Computer Science</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Mathematics">
+        <rdfs:subClassOf rdf:resource="#Department"/>
+        <rdfs:label>Mathematics</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Course">
+        <rdfs:label>Course</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Degree">
+        <rdfs:label>Degree</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Bachelor">
+        <rdfs:subClassOf rdf:resource="#Degree"/>
+        <rdfs:label>Bachelor's Degree</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Master">
+        <rdfs:subClassOf rdf:resource="#Degree"/>
+        <rdfs:label>Master's Degree</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#PhD">
+        <rdfs:subClassOf rdf:resource="#Degree"/>
+        <rdfs:label>PhD</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Publication">
+        <rdfs:label>Publication</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Journal">
+        <rdfs:subClassOf rdf:resource="#Publication"/>
+        <rdfs:label>Journal Article</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Conference">
+        <rdfs:subClassOf rdf:resource="#Publication"/>
+        <rdfs:label>Conference Paper</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ResearchProject">
+        <rdfs:label>Research Project</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Grant">
+        <rdfs:label>Grant</rdfs:label>
+    </owl:Class>
+
+    <!-- INSTANCES -->
+    <PhDStudent rdf:about="#Student_Emily_Wang">
+        <fullName>Emily Wang</fullName>
+        <studentID>STU-PhD-001</studentID>
+        <gpa rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.9</gpa>
+        <researchArea>Artificial Intelligence</researchArea>
+        <rdfs:label>Emily Wang</rdfs:label>
+    </PhDStudent>
+
+    <UndergraduateStudent rdf:about="#Student_John_Miller">
+        <fullName>John Miller</fullName>
+        <studentID>STU-UG-001</studentID>
+        <gpa rdf:datatype="http://www.w3.org/2001/XMLSchema#float">3.5</gpa>
+        <rdfs:label>John Miller</rdfs:label>
+    </UndergraduateStudent>
+
+    <FullProfessor rdf:about="#Prof_David_Anderson">
+        <fullName>Dr. David Anderson</fullName>
+        <researchArea>Machine Learning</researchArea>
+        <rdfs:label>Prof. David Anderson</rdfs:label>
+    </FullProfessor>
+
+    <AssistantProfessor rdf:about="#Prof_Lisa_Chen">
+        <fullName>Dr. Lisa Chen</fullName>
+        <researchArea>Natural Language Processing</researchArea>
+        <rdfs:label>Prof. Lisa Chen</rdfs:label>
+    </AssistantProfessor>
+
+    <ComputerScience rdf:about="#Dept_CS">
+        <rdfs:label>Computer Science Department</rdfs:label>
+    </ComputerScience>
+
+    <Course rdf:about="#Course_AI101">
+        <rdfs:label>Introduction to AI</rdfs:label>
+        <courseCode>CS-501</courseCode>
+        <credits rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</credits>
+    </Course>
+
+    <Course rdf:about="#Course_ML201">
+        <rdfs:label>Machine Learning</rdfs:label>
+        <courseCode>CS-601</courseCode>
+        <credits rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">4</credits>
+    </Course>
+
+    <PhD rdf:about="#Degree_PhD_CS">
+        <rdfs:label>PhD in Computer Science</rdfs:label>
+    </PhD>
+
+    <Bachelor rdf:about="#Degree_BS_CS">
+        <rdfs:label>BS in Computer Science</rdfs:label>
+    </Bachelor>
+
+    <Journal rdf:about="#Paper_AIResearch">
+        <rdfs:label>Deep Learning Applications in NLP</rdfs:label>
+        <publicationYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2024</publicationYear>
+    </Journal>
+
+    <Conference rdf:about="#Paper_MLConf">
+        <rdfs:label>Novel Approaches to Neural Networks</rdfs:label>
+        <publicationYear rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2023</publicationYear>
+    </Conference>
+
+    <ResearchProject rdf:about="#Project_AIEthics">
+        <rdfs:label>AI Ethics Research Project</rdfs:label>
+        <researchArea>AI Ethics</researchArea>
+    </ResearchProject>
+
+    <Grant rdf:about="#Grant_NSF2024">
+        <rdfs:label>NSF Research Grant 2024</rdfs:label>
+        <grantAmount rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500000.00</grantAmount>
+    </Grant>
+
+    <!-- Relationships -->
+    <rdf:Description rdf:about="#Student_Emily_Wang">
+        <enrolledIn rdf:resource="#Course_AI101"/>
+        <enrolledIn rdf:resource="#Course_ML201"/>
+        <supervisedBy rdf:resource="#Prof_David_Anderson"/>
+        <pursuingDegree rdf:resource="#Degree_PhD_CS"/>
+        <belongsToDepartment rdf:resource="#Dept_CS"/>
+        <participatesIn rdf:resource="#Project_AIEthics"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Student_John_Miller">
+        <enrolledIn rdf:resource="#Course_AI101"/>
+        <pursuingDegree rdf:resource="#Degree_BS_CS"/>
+        <belongsToDepartment rdf:resource="#Dept_CS"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Prof_David_Anderson">
+        <teaches rdf:resource="#Course_ML201"/>
+        <authoredBy rdf:resource="#Paper_AIResearch"/>
+        <authoredBy rdf:resource="#Paper_MLConf"/>
+        <belongsToDepartment rdf:resource="#Dept_CS"/>
+        <participatesIn rdf:resource="#Project_AIEthics"/>
+        <collaboratesWith rdf:resource="#Prof_Lisa_Chen"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Prof_Lisa_Chen">
+        <teaches rdf:resource="#Course_AI101"/>
+        <authoredBy rdf:resource="#Paper_AIResearch"/>
+        <belongsToDepartment rdf:resource="#Dept_CS"/>
+        <collaboratesWith rdf:resource="#Prof_David_Anderson"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Project_AIEthics">
+        <fundedBy rdf:resource="#Grant_NSF2024"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Paper_AIResearch">
+        <citedBy rdf:resource="#Paper_MLConf"/>
+    </rdf:Description>
+
+</rdf:RDF>

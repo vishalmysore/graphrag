@@ -1,0 +1,314 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/finance#"
+     xml:base="http://www.semanticweb.org/finance"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/finance">
+        <rdfs:comment>Investment Portfolio Management Ontology for GraphRAG</rdfs:comment>
+        <rdfs:label>Investment Portfolio Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- OBJECT PROPERTIES -->
+    <owl:ObjectProperty rdf:about="#owns">
+        <rdfs:domain rdf:resource="#Investor"/>
+        <rdfs:range rdf:resource="#Portfolio"/>
+        <rdfs:label>owns</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#managedBy">
+        <rdfs:domain rdf:resource="#Portfolio"/>
+        <rdfs:range rdf:resource="#Broker"/>
+        <rdfs:label>managed by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#tradedBy">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="#Broker"/>
+        <rdfs:label>traded by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#belongsToSector">
+        <rdfs:domain rdf:resource="#Asset"/>
+        <rdfs:range rdf:resource="#MarketSector"/>
+        <rdfs:label>belongs to sector</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#correlatedWith">
+        <rdfs:domain rdf:resource="#Asset"/>
+        <rdfs:range rdf:resource="#Asset"/>
+        <rdfs:label>correlated with</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#holdsAsset">
+        <rdfs:domain rdf:resource="#Portfolio"/>
+        <rdfs:range rdf:resource="#Asset"/>
+        <rdfs:label>holds asset</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#executedTransaction">
+        <rdfs:domain rdf:resource="#Investor"/>
+        <rdfs:range rdf:resource="#Transaction"/>
+        <rdfs:label>executed transaction</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- DATA PROPERTIES -->
+    <owl:DatatypeProperty rdf:about="#investorID">
+        <rdfs:domain rdf:resource="#Investor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>investor ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#portfolioValue">
+        <rdfs:domain rdf:resource="#Portfolio"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>portfolio value</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#riskLevel">
+        <rdfs:domain rdf:resource="#Portfolio"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>risk level</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#ticker">
+        <rdfs:domain rdf:resource="#Stock"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>ticker symbol</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#currentPrice">
+        <rdfs:domain rdf:resource="#Asset"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>current price</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#quantity">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>quantity</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#transactionType">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>transaction type</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#transactionDate">
+        <rdfs:domain rdf:resource="#Transaction"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>transaction date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#yield">
+        <rdfs:domain rdf:resource="#Bond"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>yield</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#maturityDate">
+        <rdfs:domain rdf:resource="#Bond"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>maturity date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- CLASSES -->
+    <owl:Class rdf:about="#Person">
+        <rdfs:label>Person</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Investor">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Investor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#InstitutionalInvestor">
+        <rdfs:subClassOf rdf:resource="#Investor"/>
+        <rdfs:label>Institutional Investor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#RetailInvestor">
+        <rdfs:subClassOf rdf:resource="#Investor"/>
+        <rdfs:label>Retail Investor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Broker">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Broker</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Portfolio">
+        <rdfs:label>Portfolio</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#AggressivePortfolio">
+        <rdfs:subClassOf rdf:resource="#Portfolio"/>
+        <rdfs:label>Aggressive Portfolio</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ConservativePortfolio">
+        <rdfs:subClassOf rdf:resource="#Portfolio"/>
+        <rdfs:label>Conservative Portfolio</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Asset">
+        <rdfs:label>Asset</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Stock">
+        <rdfs:subClassOf rdf:resource="#Asset"/>
+        <rdfs:label>Stock</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#TechStock">
+        <rdfs:subClassOf rdf:resource="#Stock"/>
+        <rdfs:label>Technology Stock</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Bond">
+        <rdfs:subClassOf rdf:resource="#Asset"/>
+        <rdfs:label>Bond</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CorporateBond">
+        <rdfs:subClassOf rdf:resource="#Bond"/>
+        <rdfs:label>Corporate Bond</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#GovernmentBond">
+        <rdfs:subClassOf rdf:resource="#Bond"/>
+        <rdfs:label>Government Bond</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Transaction">
+        <rdfs:label>Transaction</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#MarketSector">
+        <rdfs:label>Market Sector</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#TechnologySector">
+        <rdfs:subClassOf rdf:resource="#MarketSector"/>
+        <rdfs:label>Technology Sector</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#HealthcareSector">
+        <rdfs:subClassOf rdf:resource="#MarketSector"/>
+        <rdfs:label>Healthcare Sector</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FinancialSector">
+        <rdfs:subClassOf rdf:resource="#MarketSector"/>
+        <rdfs:label>Financial Sector</rdfs:label>
+    </owl:Class>
+
+    <!-- INSTANCES -->
+    <RetailInvestor rdf:about="#Investor_Sarah_Johnson">
+        <rdfs:label>Sarah Johnson</rdfs:label>
+        <investorID>INV-001</investorID>
+    </RetailInvestor>
+
+    <InstitutionalInvestor rdf:about="#Investor_PensionFund">
+        <rdfs:label>State Pension Fund</rdfs:label>
+        <investorID>INV-INST-001</investorID>
+    </InstitutionalInvestor>
+
+    <Broker rdf:about="#Broker_Michael_Thompson">
+        <rdfs:label>Michael Thompson</rdfs:label>
+    </Broker>
+
+    <AggressivePortfolio rdf:about="#Portfolio_Growth">
+        <rdfs:label>Growth Portfolio</rdfs:label>
+        <portfolioValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500000.00</portfolioValue>
+        <riskLevel>High</riskLevel>
+    </AggressivePortfolio>
+
+    <ConservativePortfolio rdf:about="#Portfolio_Income">
+        <rdfs:label>Income Portfolio</rdfs:label>
+        <portfolioValue rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1000000.00</portfolioValue>
+        <riskLevel>Low</riskLevel>
+    </ConservativePortfolio>
+
+    <TechStock rdf:about="#Stock_AAPL">
+        <rdfs:label>Apple Inc.</rdfs:label>
+        <ticker>AAPL</ticker>
+        <currentPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#float">175.50</currentPrice>
+    </TechStock>
+
+    <TechStock rdf:about="#Stock_MSFT">
+        <rdfs:label>Microsoft Corp.</rdfs:label>
+        <ticker>MSFT</ticker>
+        <currentPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#float">380.25</currentPrice>
+    </TechStock>
+
+    <TechStock rdf:about="#Stock_GOOGL">
+        <rdfs:label>Alphabet Inc.</rdfs:label>
+        <ticker>GOOGL</ticker>
+        <currentPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#float">140.75</currentPrice>
+    </TechStock>
+
+    <GovernmentBond rdf:about="#Bond_UST10Y">
+        <rdfs:label>US Treasury 10-Year</rdfs:label>
+        <currentPrice rdf:datatype="http://www.w3.org/2001/XMLSchema#float">98.50</currentPrice>
+        <yield rdf:datatype="http://www.w3.org/2001/XMLSchema#float">4.2</yield>
+        <maturityDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2034-12-31T00:00:00</maturityDate>
+    </GovernmentBond>
+
+    <TechnologySector rdf:about="#Sector_Technology">
+        <rdfs:label>Technology Sector</rdfs:label>
+    </TechnologySector>
+
+    <Transaction rdf:about="#Transaction_BuyAAPL">
+        <rdfs:label>Buy AAPL Transaction</rdfs:label>
+        <transactionType>BUY</transactionType>
+        <quantity rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">100</quantity>
+        <transactionDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-12-01T10:30:00</transactionDate>
+    </Transaction>
+
+    <!-- Relationships -->
+    <rdf:Description rdf:about="#Investor_Sarah_Johnson">
+        <owns rdf:resource="#Portfolio_Growth"/>
+        <executedTransaction rdf:resource="#Transaction_BuyAAPL"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Investor_PensionFund">
+        <owns rdf:resource="#Portfolio_Income"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Portfolio_Growth">
+        <managedBy rdf:resource="#Broker_Michael_Thompson"/>
+        <holdsAsset rdf:resource="#Stock_AAPL"/>
+        <holdsAsset rdf:resource="#Stock_MSFT"/>
+        <holdsAsset rdf:resource="#Stock_GOOGL"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Portfolio_Income">
+        <holdsAsset rdf:resource="#Bond_UST10Y"/>
+        <managedBy rdf:resource="#Broker_Michael_Thompson"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Stock_AAPL">
+        <belongsToSector rdf:resource="#Sector_Technology"/>
+        <correlatedWith rdf:resource="#Stock_MSFT"/>
+        <correlatedWith rdf:resource="#Stock_GOOGL"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Stock_MSFT">
+        <belongsToSector rdf:resource="#Sector_Technology"/>
+        <correlatedWith rdf:resource="#Stock_AAPL"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Stock_GOOGL">
+        <belongsToSector rdf:resource="#Sector_Technology"/>
+        <correlatedWith rdf:resource="#Stock_AAPL"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Transaction_BuyAAPL">
+        <tradedBy rdf:resource="#Broker_Michael_Thompson"/>
+    </rdf:Description>
+
+</rdf:RDF>

@@ -1,0 +1,313 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/smartcity#"
+     xml:base="http://www.semanticweb.org/smartcity"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/smartcity">
+        <rdfs:comment>Smart City Infrastructure Ontology for GraphRAG</rdfs:comment>
+        <rdfs:label>Smart City Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- OBJECT PROPERTIES -->
+    <owl:ObjectProperty rdf:about="#locatedAt">
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>located at</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#monitors">
+        <rdfs:domain rdf:resource="#Sensor"/>
+        <rdfs:label>monitors</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#providesService">
+        <rdfs:domain rdf:resource="#Building"/>
+        <rdfs:range rdf:resource="#Service"/>
+        <rdfs:label>provides service</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#triggeredBy">
+        <rdfs:domain rdf:resource="#Alert"/>
+        <rdfs:range rdf:resource="#Sensor"/>
+        <rdfs:label>triggered by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#connectedTo">
+        <rdfs:domain rdf:resource="#Device"/>
+        <rdfs:range rdf:resource="#Device"/>
+        <rdfs:label>connected to</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#servesArea">
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>serves area</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#generatesData">
+        <rdfs:domain rdf:resource="#Sensor"/>
+        <rdfs:range rdf:resource="#DataStream"/>
+        <rdfs:label>generates data</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- DATA PROPERTIES -->
+    <owl:DatatypeProperty rdf:about="#sensorID">
+        <rdfs:domain rdf:resource="#Sensor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>sensor ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#latitude">
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>latitude</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#longitude">
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>longitude</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#reading">
+        <rdfs:domain rdf:resource="#Sensor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>current reading</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#unit">
+        <rdfs:domain rdf:resource="#Sensor"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>measurement unit</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#alertLevel">
+        <rdfs:domain rdf:resource="#Alert"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>alert level</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#timestamp">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>timestamp</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#status">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>status</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- CLASSES -->
+    <owl:Class rdf:about="#Device">
+        <rdfs:label>Device</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Sensor">
+        <rdfs:subClassOf rdf:resource="#Device"/>
+        <rdfs:label>Sensor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#AirQualitySensor">
+        <rdfs:subClassOf rdf:resource="#Sensor"/>
+        <rdfs:label>Air Quality Sensor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#TrafficSensor">
+        <rdfs:subClassOf rdf:resource="#Sensor"/>
+        <rdfs:label>Traffic Sensor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#NoiseSensor">
+        <rdfs:subClassOf rdf:resource="#Sensor"/>
+        <rdfs:label>Noise Sensor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#TemperatureSensor">
+        <rdfs:subClassOf rdf:resource="#Sensor"/>
+        <rdfs:label>Temperature Sensor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Location">
+        <rdfs:label>Location</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Downtown">
+        <rdfs:subClassOf rdf:resource="#Location"/>
+        <rdfs:label>Downtown Area</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Suburb">
+        <rdfs:subClassOf rdf:resource="#Location"/>
+        <rdfs:label>Suburb Area</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Building">
+        <rdfs:label>Building</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#PublicBuilding">
+        <rdfs:subClassOf rdf:resource="#Building"/>
+        <rdfs:label>Public Building</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Hospital">
+        <rdfs:subClassOf rdf:resource="#PublicBuilding"/>
+        <rdfs:label>Hospital</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#School">
+        <rdfs:subClassOf rdf:resource="#PublicBuilding"/>
+        <rdfs:label>School</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Service">
+        <rdfs:label>Service</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#EmergencyService">
+        <rdfs:subClassOf rdf:resource="#Service"/>
+        <rdfs:label>Emergency Service</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#EducationService">
+        <rdfs:subClassOf rdf:resource="#Service"/>
+        <rdfs:label>Education Service</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Alert">
+        <rdfs:label>Alert</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#AirQualityAlert">
+        <rdfs:subClassOf rdf:resource="#Alert"/>
+        <rdfs:label>Air Quality Alert</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#TrafficAlert">
+        <rdfs:subClassOf rdf:resource="#Alert"/>
+        <rdfs:label>Traffic Alert</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Citizen">
+        <rdfs:label>Citizen</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DataStream">
+        <rdfs:label>Data Stream</rdfs:label>
+    </owl:Class>
+
+    <!-- INSTANCES -->
+    <Downtown rdf:about="#Location_Downtown">
+        <rdfs:label>Downtown District</rdfs:label>
+        <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">40.7128</latitude>
+        <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-74.0060</longitude>
+    </Downtown>
+
+    <Suburb rdf:about="#Location_NorthSuburb">
+        <rdfs:label>North Suburb</rdfs:label>
+        <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">40.8128</latitude>
+        <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-74.1060</longitude>
+    </Suburb>
+
+    <AirQualitySensor rdf:about="#Sensor_AQ001">
+        <rdfs:label>Air Quality Sensor Downtown-01</rdfs:label>
+        <sensorID>AQ-SENSOR-001</sensorID>
+        <reading rdf:datatype="http://www.w3.org/2001/XMLSchema#float">85.5</reading>
+        <unit>AQI</unit>
+        <status>Active</status>
+    </AirQualitySensor>
+
+    <TrafficSensor rdf:about="#Sensor_TR001">
+        <rdfs:label>Traffic Sensor Main St</rdfs:label>
+        <sensorID>TR-SENSOR-001</sensorID>
+        <reading rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45.0</reading>
+        <unit>vehicles/min</unit>
+        <status>Active</status>
+    </TrafficSensor>
+
+    <NoiseSensor rdf:about="#Sensor_NS001">
+        <rdfs:label>Noise Sensor City Hall</rdfs:label>
+        <sensorID>NS-SENSOR-001</sensorID>
+        <reading rdf:datatype="http://www.w3.org/2001/XMLSchema#float">65.2</reading>
+        <unit>dB</unit>
+        <status>Active</status>
+    </NoiseSensor>
+
+    <TemperatureSensor rdf:about="#Sensor_TP001">
+        <rdfs:label>Temperature Sensor Park-01</rdfs:label>
+        <sensorID>TP-SENSOR-001</sensorID>
+        <reading rdf:datatype="http://www.w3.org/2001/XMLSchema#float">22.5</reading>
+        <unit>Celsius</unit>
+        <status>Active</status>
+    </TemperatureSensor>
+
+    <Hospital rdf:about="#Building_CityHospital">
+        <rdfs:label>City General Hospital</rdfs:label>
+        <status>Operational</status>
+    </Hospital>
+
+    <School rdf:about="#Building_CentralSchool">
+        <rdfs:label>Central Elementary School</rdfs:label>
+        <status>Operational</status>
+    </School>
+
+    <EmergencyService rdf:about="#Service_Emergency">
+        <rdfs:label>Emergency Medical Service</rdfs:label>
+    </EmergencyService>
+
+    <EducationService rdf:about="#Service_Education">
+        <rdfs:label>Public Education Service</rdfs:label>
+    </EducationService>
+
+    <AirQualityAlert rdf:about="#Alert_AQ001">
+        <rdfs:label>High AQI Alert Downtown</rdfs:label>
+        <alertLevel>WARNING</alertLevel>
+        <timestamp rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-12-04T14:30:00</timestamp>
+    </AirQualityAlert>
+
+    <DataStream rdf:about="#DataStream_AQ001">
+        <rdfs:label>Air Quality Data Stream</rdfs:label>
+    </DataStream>
+
+    <!-- Relationships -->
+    <rdf:Description rdf:about="#Sensor_AQ001">
+        <locatedAt rdf:resource="#Location_Downtown"/>
+        <monitors rdf:resource="#Location_Downtown"/>
+        <generatesData rdf:resource="#DataStream_AQ001"/>
+        <connectedTo rdf:resource="#Sensor_TP001"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Sensor_TR001">
+        <locatedAt rdf:resource="#Location_Downtown"/>
+        <monitors rdf:resource="#Location_Downtown"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Sensor_NS001">
+        <locatedAt rdf:resource="#Location_Downtown"/>
+        <monitors rdf:resource="#Location_Downtown"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Sensor_TP001">
+        <locatedAt rdf:resource="#Location_NorthSuburb"/>
+        <connectedTo rdf:resource="#Sensor_AQ001"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Building_CityHospital">
+        <locatedAt rdf:resource="#Location_Downtown"/>
+        <providesService rdf:resource="#Service_Emergency"/>
+        <servesArea rdf:resource="#Location_Downtown"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Building_CentralSchool">
+        <locatedAt rdf:resource="#Location_NorthSuburb"/>
+        <providesService rdf:resource="#Service_Education"/>
+        <servesArea rdf:resource="#Location_NorthSuburb"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Alert_AQ001">
+        <triggeredBy rdf:resource="#Sensor_AQ001"/>
+    </rdf:Description>
+
+</rdf:RDF>

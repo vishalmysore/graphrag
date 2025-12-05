@@ -1,0 +1,360 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/legal#"
+     xml:base="http://www.semanticweb.org/legal"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/legal">
+        <rdfs:comment>Legal Case Management Ontology for GraphRAG</rdfs:comment>
+        <rdfs:label>Legal Case Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- OBJECT PROPERTIES -->
+    <owl:ObjectProperty rdf:about="#representedBy">
+        <rdfs:range rdf:resource="#Lawyer"/>
+        <rdfs:label>represented by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#presides">
+        <rdfs:domain rdf:resource="#Judge"/>
+        <rdfs:range rdf:resource="#Case"/>
+        <rdfs:label>presides</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#cites">
+        <rdfs:domain rdf:resource="#Case"/>
+        <rdfs:range rdf:resource="#Statute"/>
+        <rdfs:label>cites</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#relatedTo">
+        <rdfs:domain rdf:resource="#Case"/>
+        <rdfs:range rdf:resource="#Case"/>
+        <rdfs:label>related to</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#violates">
+        <rdfs:range rdf:resource="#Statute"/>
+        <rdfs:label>violates</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#appealsTo">
+        <rdfs:domain rdf:resource="#Case"/>
+        <rdfs:range rdf:resource="#Court"/>
+        <rdfs:label>appeals to</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#filedIn">
+        <rdfs:domain rdf:resource="#Case"/>
+        <rdfs:range rdf:resource="#Court"/>
+        <rdfs:label>filed in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#providesEvidence">
+        <rdfs:domain rdf:resource="#Evidence"/>
+        <rdfs:range rdf:resource="#Case"/>
+        <rdfs:label>provides evidence for</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#citedBy">
+        <rdfs:domain rdf:resource="#Case"/>
+        <rdfs:range rdf:resource="#Case"/>
+        <rdfs:label>cited by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- DATA PROPERTIES -->
+    <owl:DatatypeProperty rdf:about="#caseNumber">
+        <rdfs:domain rdf:resource="#Case"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>case number</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#filingDate">
+        <rdfs:domain rdf:resource="#Case"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>filing date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#verdictDate">
+        <rdfs:domain rdf:resource="#Verdict"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>verdict date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#outcome">
+        <rdfs:domain rdf:resource="#Verdict"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>outcome</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#caseStatus">
+        <rdfs:domain rdf:resource="#Case"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>case status</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#statuteCode">
+        <rdfs:domain rdf:resource="#Statute"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>statute code</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#evidenceType">
+        <rdfs:domain rdf:resource="#Evidence"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>evidence type</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#barNumber">
+        <rdfs:domain rdf:resource="#Lawyer"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>bar number</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- CLASSES -->
+    <owl:Class rdf:about="#Person">
+        <rdfs:label>Person</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Case">
+        <rdfs:label>Case</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CivilCase">
+        <rdfs:subClassOf rdf:resource="#Case"/>
+        <rdfs:label>Civil Case</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CriminalCase">
+        <rdfs:subClassOf rdf:resource="#Case"/>
+        <rdfs:label>Criminal Case</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#AppellateCase">
+        <rdfs:subClassOf rdf:resource="#Case"/>
+        <rdfs:label>Appellate Case</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Lawyer">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Lawyer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Prosecutor">
+        <rdfs:subClassOf rdf:resource="#Lawyer"/>
+        <rdfs:label>Prosecutor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DefenseAttorney">
+        <rdfs:subClassOf rdf:resource="#Lawyer"/>
+        <rdfs:label>Defense Attorney</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Judge">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Judge</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#SupremeCourtJudge">
+        <rdfs:subClassOf rdf:resource="#Judge"/>
+        <rdfs:label>Supreme Court Judge</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Plaintiff">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Plaintiff</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Defendant">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Defendant</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Court">
+        <rdfs:label>Court</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DistrictCourt">
+        <rdfs:subClassOf rdf:resource="#Court"/>
+        <rdfs:label>District Court</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#AppellateCourt">
+        <rdfs:subClassOf rdf:resource="#Court"/>
+        <rdfs:label>Appellate Court</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#SupremeCourt">
+        <rdfs:subClassOf rdf:resource="#Court"/>
+        <rdfs:label>Supreme Court</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Evidence">
+        <rdfs:label>Evidence</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DocumentEvidence">
+        <rdfs:subClassOf rdf:resource="#Evidence"/>
+        <rdfs:label>Document Evidence</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#PhysicalEvidence">
+        <rdfs:subClassOf rdf:resource="#Evidence"/>
+        <rdfs:label>Physical Evidence</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Verdict">
+        <rdfs:label>Verdict</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Statute">
+        <rdfs:label>Statute</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FederalStatute">
+        <rdfs:subClassOf rdf:resource="#Statute"/>
+        <rdfs:label>Federal Statute</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#StateStatute">
+        <rdfs:subClassOf rdf:resource="#Statute"/>
+        <rdfs:label>State Statute</rdfs:label>
+    </owl:Class>
+
+    <!-- INSTANCES -->
+    <CivilCase rdf:about="#Case_SmithVsJones">
+        <rdfs:label>Smith v. Jones</rdfs:label>
+        <caseNumber>CV-2024-001</caseNumber>
+        <filingDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-01-15T00:00:00</filingDate>
+        <caseStatus>Active</caseStatus>
+    </CivilCase>
+
+    <CriminalCase rdf:about="#Case_StateVsDoe">
+        <rdfs:label>State v. Doe</rdfs:label>
+        <caseNumber>CR-2024-042</caseNumber>
+        <filingDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-03-20T00:00:00</filingDate>
+        <caseStatus>Trial</caseStatus>
+    </CriminalCase>
+
+    <AppellateCase rdf:about="#Case_AppealCV001">
+        <rdfs:label>Appeal of CV-2023-500</rdfs:label>
+        <caseNumber>APP-2024-010</caseNumber>
+        <filingDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-05-10T00:00:00</filingDate>
+        <caseStatus>Under Review</caseStatus>
+    </AppellateCase>
+
+    <Lawyer rdf:about="#Lawyer_JohnSmith">
+        <rdfs:label>John Smith, Esq.</rdfs:label>
+        <barNumber>BAR-123456</barNumber>
+    </Lawyer>
+
+    <DefenseAttorney rdf:about="#Lawyer_SarahWilson">
+        <rdfs:label>Sarah Wilson, Esq.</rdfs:label>
+        <barNumber>BAR-789012</barNumber>
+    </DefenseAttorney>
+
+    <Prosecutor rdf:about="#Lawyer_MichaelBrown">
+        <rdfs:label>Michael Brown, DA</rdfs:label>
+        <barNumber>BAR-345678</barNumber>
+    </Prosecutor>
+
+    <Judge rdf:about="#Judge_RobertJohnson">
+        <rdfs:label>Hon. Robert Johnson</rdfs:label>
+    </Judge>
+
+    <SupremeCourtJudge rdf:about="#Judge_MariaGarcia">
+        <rdfs:label>Hon. Maria Garcia</rdfs:label>
+    </SupremeCourtJudge>
+
+    <Plaintiff rdf:about="#Person_JaneSmith">
+        <rdfs:label>Jane Smith</rdfs:label>
+    </Plaintiff>
+
+    <Defendant rdf:about="#Person_BobJones">
+        <rdfs:label>Bob Jones</rdfs:label>
+    </Defendant>
+
+    <Defendant rdf:about="#Person_JohnDoe">
+        <rdfs:label>John Doe</rdfs:label>
+    </Defendant>
+
+    <DistrictCourt rdf:about="#Court_District1">
+        <rdfs:label>District Court, District 1</rdfs:label>
+    </DistrictCourt>
+
+    <AppellateCourt rdf:about="#Court_Appellate">
+        <rdfs:label>State Appellate Court</rdfs:label>
+    </AppellateCourt>
+
+    <FederalStatute rdf:about="#Statute_USC1234">
+        <rdfs:label>18 USC § 1234</rdfs:label>
+        <statuteCode>18-USC-1234</statuteCode>
+    </FederalStatute>
+
+    <StateStatute rdf:about="#Statute_CA567">
+        <rdfs:label>California Penal Code § 567</rdfs:label>
+        <statuteCode>CA-PC-567</statuteCode>
+    </StateStatute>
+
+    <DocumentEvidence rdf:about="#Evidence_Contract">
+        <rdfs:label>Contract Document</rdfs:label>
+        <evidenceType>Written Document</evidenceType>
+    </DocumentEvidence>
+
+    <PhysicalEvidence rdf:about="#Evidence_Weapon">
+        <rdfs:label>Weapon Evidence</rdfs:label>
+        <evidenceType>Physical Object</evidenceType>
+    </PhysicalEvidence>
+
+    <Verdict rdf:about="#Verdict_SmithVsJones">
+        <rdfs:label>Verdict: Plaintiff Prevails</rdfs:label>
+        <outcome>Plaintiff Prevails</outcome>
+        <verdictDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-08-15T00:00:00</verdictDate>
+    </Verdict>
+
+    <!-- Relationships -->
+    <rdf:Description rdf:about="#Case_SmithVsJones">
+        <presides rdf:resource="#Judge_RobertJohnson"/>
+        <filedIn rdf:resource="#Court_District1"/>
+        <cites rdf:resource="#Statute_CA567"/>
+        <citedBy rdf:resource="#Case_AppealCV001"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Case_StateVsDoe">
+        <presides rdf:resource="#Judge_RobertJohnson"/>
+        <filedIn rdf:resource="#Court_District1"/>
+        <cites rdf:resource="#Statute_USC1234"/>
+        <violates rdf:resource="#Statute_USC1234"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Case_AppealCV001">
+        <appealsTo rdf:resource="#Court_Appellate"/>
+        <filedIn rdf:resource="#Court_Appellate"/>
+        <presides rdf:resource="#Judge_MariaGarcia"/>
+        <relatedTo rdf:resource="#Case_SmithVsJones"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Person_JaneSmith">
+        <representedBy rdf:resource="#Lawyer_JohnSmith"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Person_BobJones">
+        <representedBy rdf:resource="#Lawyer_SarahWilson"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Person_JohnDoe">
+        <representedBy rdf:resource="#Lawyer_SarahWilson"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Evidence_Contract">
+        <providesEvidence rdf:resource="#Case_SmithVsJones"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Evidence_Weapon">
+        <providesEvidence rdf:resource="#Case_StateVsDoe"/>
+    </rdf:Description>
+
+</rdf:RDF>

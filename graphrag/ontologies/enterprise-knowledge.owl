@@ -1,0 +1,329 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/enterprise#"
+     xml:base="http://www.semanticweb.org/enterprise"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/enterprise">
+        <rdfs:comment>Corporate Knowledge Management Ontology for GraphRAG</rdfs:comment>
+        <rdfs:label>Enterprise Knowledge Management Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- OBJECT PROPERTIES -->
+    <owl:ObjectProperty rdf:about="#worksIn">
+        <rdfs:domain rdf:resource="#Employee"/>
+        <rdfs:range rdf:resource="#Department"/>
+        <rdfs:label>works in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#managedBy">
+        <rdfs:domain rdf:resource="#Department"/>
+        <rdfs:range rdf:resource="#Manager"/>
+        <rdfs:label>managed by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#hasSkill">
+        <rdfs:domain rdf:resource="#Employee"/>
+        <rdfs:range rdf:resource="#Skill"/>
+        <rdfs:label>has skill</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#contributedTo">
+        <rdfs:domain rdf:resource="#Employee"/>
+        <rdfs:range rdf:resource="#Project"/>
+        <rdfs:label>contributed to</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#attendedMeeting">
+        <rdfs:domain rdf:resource="#Employee"/>
+        <rdfs:range rdf:resource="#Meeting"/>
+        <rdfs:label>attended meeting</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#assignedTo">
+        <rdfs:domain rdf:resource="#Task"/>
+        <rdfs:range rdf:resource="#Employee"/>
+        <rdfs:label>assigned to</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#authoredDocument">
+        <rdfs:domain rdf:resource="#Employee"/>
+        <rdfs:range rdf:resource="#Document"/>
+        <rdfs:label>authored document</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#mentors">
+        <rdfs:domain rdf:resource="#Employee"/>
+        <rdfs:range rdf:resource="#Employee"/>
+        <rdfs:label>mentors</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#collaboratesWith">
+        <rdfs:domain rdf:resource="#Employee"/>
+        <rdfs:range rdf:resource="#Employee"/>
+        <rdfs:label>collaborates with</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#requiresSkill">
+        <rdfs:domain rdf:resource="#Project"/>
+        <rdfs:range rdf:resource="#Skill"/>
+        <rdfs:label>requires skill</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- DATA PROPERTIES -->
+    <owl:DatatypeProperty rdf:about="#employeeID">
+        <rdfs:domain rdf:resource="#Employee"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>employee ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#fullName">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>full name</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#email">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>email</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#skillLevel">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>skill level</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#yearsExperience">
+        <rdfs:domain rdf:resource="#Employee"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>years experience</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#projectStatus">
+        <rdfs:domain rdf:resource="#Project"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>project status</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#budget">
+        <rdfs:domain rdf:resource="#Project"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>budget</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#deadline">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>deadline</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- CLASSES -->
+    <owl:Class rdf:about="#Person">
+        <rdfs:label>Person</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Employee">
+        <rdfs:subClassOf rdf:resource="#Person"/>
+        <rdfs:label>Employee</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Manager">
+        <rdfs:subClassOf rdf:resource="#Employee"/>
+        <rdfs:label>Manager</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Engineer">
+        <rdfs:subClassOf rdf:resource="#Employee"/>
+        <rdfs:label>Engineer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DataScientist">
+        <rdfs:subClassOf rdf:resource="#Employee"/>
+        <rdfs:label>Data Scientist</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Department">
+        <rdfs:label>Department</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Engineering">
+        <rdfs:subClassOf rdf:resource="#Department"/>
+        <rdfs:label>Engineering</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#DataScience">
+        <rdfs:subClassOf rdf:resource="#Department"/>
+        <rdfs:label>Data Science</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Marketing">
+        <rdfs:subClassOf rdf:resource="#Department"/>
+        <rdfs:label>Marketing</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Project">
+        <rdfs:label>Project</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#AIProject">
+        <rdfs:subClassOf rdf:resource="#Project"/>
+        <rdfs:label>AI Project</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#WebDevelopmentProject">
+        <rdfs:subClassOf rdf:resource="#Project"/>
+        <rdfs:label>Web Development Project</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Skill">
+        <rdfs:label>Skill</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#TechnicalSkill">
+        <rdfs:subClassOf rdf:resource="#Skill"/>
+        <rdfs:label>Technical Skill</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#SoftSkill">
+        <rdfs:subClassOf rdf:resource="#Skill"/>
+        <rdfs:label>Soft Skill</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Document">
+        <rdfs:label>Document</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#TechnicalDocument">
+        <rdfs:subClassOf rdf:resource="#Document"/>
+        <rdfs:label>Technical Document</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Meeting">
+        <rdfs:label>Meeting</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Task">
+        <rdfs:label>Task</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Competency">
+        <rdfs:label>Competency</rdfs:label>
+    </owl:Class>
+
+    <!-- INSTANCES -->
+    <Engineer rdf:about="#Employee_Alice_Chen">
+        <fullName>Alice Chen</fullName>
+        <employeeID>EMP-001</employeeID>
+        <email>alice.chen@company.com</email>
+        <yearsExperience rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">8</yearsExperience>
+        <rdfs:label>Alice Chen</rdfs:label>
+    </Engineer>
+
+    <DataScientist rdf:about="#Employee_Bob_Kumar">
+        <fullName>Bob Kumar</fullName>
+        <employeeID>EMP-002</employeeID>
+        <email>bob.kumar@company.com</email>
+        <yearsExperience rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">6</yearsExperience>
+        <rdfs:label>Bob Kumar</rdfs:label>
+    </DataScientist>
+
+    <Manager rdf:about="#Manager_Sarah_Thompson">
+        <fullName>Sarah Thompson</fullName>
+        <employeeID>MGR-001</employeeID>
+        <email>sarah.thompson@company.com</email>
+        <yearsExperience rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">12</yearsExperience>
+        <rdfs:label>Sarah Thompson</rdfs:label>
+    </Manager>
+
+    <Engineering rdf:about="#Dept_Engineering">
+        <rdfs:label>Engineering Department</rdfs:label>
+    </Engineering>
+
+    <DataScience rdf:about="#Dept_DataScience">
+        <rdfs:label>Data Science Department</rdfs:label>
+    </DataScience>
+
+    <TechnicalSkill rdf:about="#Skill_Python">
+        <rdfs:label>Python Programming</rdfs:label>
+        <skillLevel>Expert</skillLevel>
+    </TechnicalSkill>
+
+    <TechnicalSkill rdf:about="#Skill_MachineLearning">
+        <rdfs:label>Machine Learning</rdfs:label>
+        <skillLevel>Expert</skillLevel>
+    </TechnicalSkill>
+
+    <TechnicalSkill rdf:about="#Skill_AI">
+        <rdfs:label>Artificial Intelligence</rdfs:label>
+        <skillLevel>Advanced</skillLevel>
+    </TechnicalSkill>
+
+    <SoftSkill rdf:about="#Skill_Leadership">
+        <rdfs:label>Leadership</rdfs:label>
+    </SoftSkill>
+
+    <AIProject rdf:about="#Project_ChatbotAI">
+        <rdfs:label>AI Chatbot Project</rdfs:label>
+        <projectStatus>Active</projectStatus>
+        <budget rdf:datatype="http://www.w3.org/2001/XMLSchema#float">500000.00</budget>
+        <deadline rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2025-06-30T00:00:00</deadline>
+    </AIProject>
+
+    <WebDevelopmentProject rdf:about="#Project_WebPortal">
+        <rdfs:label>Customer Portal Project</rdfs:label>
+        <projectStatus>Completed</projectStatus>
+        <budget rdf:datatype="http://www.w3.org/2001/XMLSchema#float">200000.00</budget>
+    </WebDevelopmentProject>
+
+    <TechnicalDocument rdf:about="#Doc_AIArchitecture">
+        <rdfs:label>AI System Architecture Document</rdfs:label>
+    </TechnicalDocument>
+
+    <Meeting rdf:about="#Meeting_WeeklyStandup">
+        <rdfs:label>Weekly Engineering Standup</rdfs:label>
+    </Meeting>
+
+    <Task rdf:about="#Task_ModelTraining">
+        <rdfs:label>Train ML Model</rdfs:label>
+        <deadline rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2025-01-15T00:00:00</deadline>
+    </Task>
+
+    <!-- Relationships -->
+    <rdf:Description rdf:about="#Employee_Alice_Chen">
+        <worksIn rdf:resource="#Dept_Engineering"/>
+        <hasSkill rdf:resource="#Skill_Python"/>
+        <hasSkill rdf:resource="#Skill_AI"/>
+        <contributedTo rdf:resource="#Project_ChatbotAI"/>
+        <authoredDocument rdf:resource="#Doc_AIArchitecture"/>
+        <collaboratesWith rdf:resource="#Employee_Bob_Kumar"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Employee_Bob_Kumar">
+        <worksIn rdf:resource="#Dept_DataScience"/>
+        <hasSkill rdf:resource="#Skill_MachineLearning"/>
+        <hasSkill rdf:resource="#Skill_Python"/>
+        <contributedTo rdf:resource="#Project_ChatbotAI"/>
+        <collaboratesWith rdf:resource="#Employee_Alice_Chen"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Manager_Sarah_Thompson">
+        <worksIn rdf:resource="#Dept_Engineering"/>
+        <hasSkill rdf:resource="#Skill_Leadership"/>
+        <attendedMeeting rdf:resource="#Meeting_WeeklyStandup"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Dept_Engineering">
+        <managedBy rdf:resource="#Manager_Sarah_Thompson"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Task_ModelTraining">
+        <assignedTo rdf:resource="#Employee_Bob_Kumar"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Project_ChatbotAI">
+        <requiresSkill rdf:resource="#Skill_AI"/>
+        <requiresSkill rdf:resource="#Skill_MachineLearning"/>
+    </rdf:Description>
+
+</rdf:RDF>
