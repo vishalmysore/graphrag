@@ -1,0 +1,687 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.semanticweb.org/birdmigration#"
+     xml:base="http://www.semanticweb.org/birdmigration"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
+    
+    <owl:Ontology rdf:about="http://www.semanticweb.org/birdmigration">
+        <rdfs:comment>Bird Migration Tracking Ontology for GraphRAG</rdfs:comment>
+        <rdfs:label>Bird Migration Ontology</rdfs:label>
+    </owl:Ontology>
+
+    <!-- OBJECT PROPERTIES -->
+    <owl:ObjectProperty rdf:about="#belongsToSpecies">
+        <rdfs:domain rdf:resource="#Bird"/>
+        <rdfs:range rdf:resource="#Species"/>
+        <rdfs:label>belongs to species</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#observedAt">
+        <rdfs:domain rdf:resource="#Observation"/>
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>observed at</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#recordedBy">
+        <rdfs:domain rdf:resource="#Observation"/>
+        <rdfs:range rdf:resource="#Observer"/>
+        <rdfs:label>recorded by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#followsRoute">
+        <rdfs:domain rdf:resource="#Migration"/>
+        <rdfs:range rdf:resource="#MigrationRoute"/>
+        <rdfs:label>follows route</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#departFrom">
+        <rdfs:domain rdf:resource="#Migration"/>
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>depart from</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#arrivesAt">
+        <rdfs:domain rdf:resource="#Migration"/>
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>arrives at</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#stopsAt">
+        <rdfs:domain rdf:resource="#Migration"/>
+        <rdfs:range rdf:resource="#Stopover"/>
+        <rdfs:label>stops at</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#trackedBy">
+        <rdfs:domain rdf:resource="#Bird"/>
+        <rdfs:range rdf:resource="#TrackingDevice"/>
+        <rdfs:label>tracked by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#inhabitedBy">
+        <rdfs:domain rdf:resource="#Habitat"/>
+        <rdfs:range rdf:resource="#Species"/>
+        <rdfs:label>inhabited by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#threatenedBy">
+        <rdfs:domain rdf:resource="#Species"/>
+        <rdfs:range rdf:resource="#Threat"/>
+        <rdfs:label>threatened by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#protectedBy">
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:range rdf:resource="#ConservationArea"/>
+        <rdfs:label>protected by</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#breedsIn">
+        <rdfs:domain rdf:resource="#Species"/>
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>breeds in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#wintersIn">
+        <rdfs:domain rdf:resource="#Species"/>
+        <rdfs:range rdf:resource="#Location"/>
+        <rdfs:label>winters in</rdfs:label>
+    </owl:ObjectProperty>
+
+    <owl:ObjectProperty rdf:about="#affectedByWeather">
+        <rdfs:domain rdf:resource="#Migration"/>
+        <rdfs:range rdf:resource="#WeatherEvent"/>
+        <rdfs:label>affected by weather</rdfs:label>
+    </owl:ObjectProperty>
+
+    <!-- DATA PROPERTIES -->
+    <owl:DatatypeProperty rdf:about="#bandNumber">
+        <rdfs:domain rdf:resource="#Bird"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>band number</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#age">
+        <rdfs:domain rdf:resource="#Bird"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>age (years)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#sex">
+        <rdfs:domain rdf:resource="#Bird"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>sex</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#weight">
+        <rdfs:domain rdf:resource="#Bird"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>weight (grams)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#wingspan">
+        <rdfs:domain rdf:resource="#Bird"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>wingspan (cm)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#observationDate">
+        <rdfs:domain rdf:resource="#Observation"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>observation date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#latitude">
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>latitude</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#longitude">
+        <rdfs:domain rdf:resource="#Location"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>longitude</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#altitude">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>altitude (meters)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#distance">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>distance (km)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#duration">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>duration (days)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#migrationStartDate">
+        <rdfs:domain rdf:resource="#Migration"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>migration start date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#migrationEndDate">
+        <rdfs:domain rdf:resource="#Migration"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#dateTime"/>
+        <rdfs:label>migration end date</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#scientificName">
+        <rdfs:domain rdf:resource="#Species"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>scientific name</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#commonName">
+        <rdfs:domain rdf:resource="#Species"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>common name</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#conservationStatus">
+        <rdfs:domain rdf:resource="#Species"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>conservation status</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#populationSize">
+        <rdfs:domain rdf:resource="#Species"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#integer"/>
+        <rdfs:label>population size</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#deviceID">
+        <rdfs:domain rdf:resource="#TrackingDevice"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <rdfs:label>device ID</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#batteryLevel">
+        <rdfs:domain rdf:resource="#TrackingDevice"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>battery level (%)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#temperature">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>temperature (Celsius)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <owl:DatatypeProperty rdf:about="#windSpeed">
+        <rdfs:domain rdf:resource="#WeatherEvent"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#float"/>
+        <rdfs:label>wind speed (km/h)</rdfs:label>
+    </owl:DatatypeProperty>
+
+    <!-- CLASSES -->
+    <owl:Class rdf:about="#Bird">
+        <rdfs:label>Bird</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Species">
+        <rdfs:label>Species</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Passerine">
+        <rdfs:subClassOf rdf:resource="#Species"/>
+        <rdfs:label>Passerine</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Raptor">
+        <rdfs:subClassOf rdf:resource="#Species"/>
+        <rdfs:label>Raptor</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Waterfowl">
+        <rdfs:subClassOf rdf:resource="#Species"/>
+        <rdfs:label>Waterfowl</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Shorebird">
+        <rdfs:subClassOf rdf:resource="#Species"/>
+        <rdfs:label>Shorebird</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Seabird">
+        <rdfs:subClassOf rdf:resource="#Species"/>
+        <rdfs:label>Seabird</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Location">
+        <rdfs:label>Location</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#BreedingGround">
+        <rdfs:subClassOf rdf:resource="#Location"/>
+        <rdfs:label>Breeding Ground</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#WinteringGround">
+        <rdfs:subClassOf rdf:resource="#Location"/>
+        <rdfs:label>Wintering Ground</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Stopover">
+        <rdfs:subClassOf rdf:resource="#Location"/>
+        <rdfs:label>Stopover Site</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Observation">
+        <rdfs:label>Observation</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#VisualObservation">
+        <rdfs:subClassOf rdf:resource="#Observation"/>
+        <rdfs:label>Visual Observation</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#GPSObservation">
+        <rdfs:subClassOf rdf:resource="#Observation"/>
+        <rdfs:label>GPS Observation</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#RadarObservation">
+        <rdfs:subClassOf rdf:resource="#Observation"/>
+        <rdfs:label>Radar Observation</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Migration">
+        <rdfs:label>Migration</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#SpringMigration">
+        <rdfs:subClassOf rdf:resource="#Migration"/>
+        <rdfs:label>Spring Migration</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#FallMigration">
+        <rdfs:subClassOf rdf:resource="#Migration"/>
+        <rdfs:label>Fall Migration</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#MigrationRoute">
+        <rdfs:label>Migration Route</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#AtlanticFlyway">
+        <rdfs:subClassOf rdf:resource="#MigrationRoute"/>
+        <rdfs:label>Atlantic Flyway</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#PacificFlyway">
+        <rdfs:subClassOf rdf:resource="#MigrationRoute"/>
+        <rdfs:label>Pacific Flyway</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CentralFlyway">
+        <rdfs:subClassOf rdf:resource="#MigrationRoute"/>
+        <rdfs:label>Central Flyway</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#MississippiFlyway">
+        <rdfs:subClassOf rdf:resource="#MigrationRoute"/>
+        <rdfs:label>Mississippi Flyway</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#TrackingDevice">
+        <rdfs:label>Tracking Device</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#GPSTransmitter">
+        <rdfs:subClassOf rdf:resource="#TrackingDevice"/>
+        <rdfs:label>GPS Transmitter</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#GeolocatorTag">
+        <rdfs:subClassOf rdf:resource="#TrackingDevice"/>
+        <rdfs:label>Geolocator Tag</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#SatelliteTag">
+        <rdfs:subClassOf rdf:resource="#TrackingDevice"/>
+        <rdfs:label>Satellite Tag</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Observer">
+        <rdfs:label>Observer</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Researcher">
+        <rdfs:subClassOf rdf:resource="#Observer"/>
+        <rdfs:label>Researcher</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CitizenScientist">
+        <rdfs:subClassOf rdf:resource="#Observer"/>
+        <rdfs:label>Citizen Scientist</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Habitat">
+        <rdfs:label>Habitat</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Wetland">
+        <rdfs:subClassOf rdf:resource="#Habitat"/>
+        <rdfs:label>Wetland</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Forest">
+        <rdfs:subClassOf rdf:resource="#Habitat"/>
+        <rdfs:label>Forest</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Grassland">
+        <rdfs:subClassOf rdf:resource="#Habitat"/>
+        <rdfs:label>Grassland</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#CoastalArea">
+        <rdfs:subClassOf rdf:resource="#Habitat"/>
+        <rdfs:label>Coastal Area</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Threat">
+        <rdfs:label>Threat</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#HabitatLoss">
+        <rdfs:subClassOf rdf:resource="#Threat"/>
+        <rdfs:label>Habitat Loss</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ClimateChange">
+        <rdfs:subClassOf rdf:resource="#Threat"/>
+        <rdfs:label>Climate Change</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Pollution">
+        <rdfs:subClassOf rdf:resource="#Threat"/>
+        <rdfs:label>Pollution</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#ConservationArea">
+        <rdfs:label>Conservation Area</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#NationalPark">
+        <rdfs:subClassOf rdf:resource="#ConservationArea"/>
+        <rdfs:label>National Park</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#WildlifeRefuge">
+        <rdfs:subClassOf rdf:resource="#ConservationArea"/>
+        <rdfs:label>Wildlife Refuge</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#WeatherEvent">
+        <rdfs:label>Weather Event</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Storm">
+        <rdfs:subClassOf rdf:resource="#WeatherEvent"/>
+        <rdfs:label>Storm</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Headwind">
+        <rdfs:subClassOf rdf:resource="#WeatherEvent"/>
+        <rdfs:label>Headwind</rdfs:label>
+    </owl:Class>
+
+    <owl:Class rdf:about="#Tailwind">
+        <rdfs:subClassOf rdf:resource="#WeatherEvent"/>
+        <rdfs:label>Tailwind</rdfs:label>
+    </owl:Class>
+
+    <!-- INSTANCES -->
+    <Waterfowl rdf:about="#Species_ArcticTern">
+        <rdfs:label>Arctic Tern</rdfs:label>
+        <scientificName>Sterna paradisaea</scientificName>
+        <commonName>Arctic Tern</commonName>
+        <conservationStatus>Least Concern</conservationStatus>
+        <populationSize rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3000000</populationSize>
+    </Waterfowl>
+
+    <Raptor rdf:about="#Species_PeregrineFalcon">
+        <rdfs:label>Peregrine Falcon</rdfs:label>
+        <scientificName>Falco peregrinus</scientificName>
+        <commonName>Peregrine Falcon</commonName>
+        <conservationStatus>Least Concern</conservationStatus>
+        <populationSize rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">140000</populationSize>
+    </Raptor>
+
+    <Shorebird rdf:about="#Species_RedKnot">
+        <rdfs:label>Red Knot</rdfs:label>
+        <scientificName>Calidris canutus</scientificName>
+        <commonName>Red Knot</commonName>
+        <conservationStatus>Near Threatened</conservationStatus>
+        <populationSize rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">450000</populationSize>
+    </Shorebird>
+
+    <Passerine rdf:about="#Species_BarnSwallow">
+        <rdfs:label>Barn Swallow</rdfs:label>
+        <scientificName>Hirundo rustica</scientificName>
+        <commonName>Barn Swallow</commonName>
+        <conservationStatus>Least Concern</conservationStatus>
+        <populationSize rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">190000000</populationSize>
+    </Passerine>
+
+    <Bird rdf:about="#Bird_AT001">
+        <rdfs:label>Arctic Tern AT-001</rdfs:label>
+        <bandNumber>AT-2024-001</bandNumber>
+        <age rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">3</age>
+        <sex>Female</sex>
+        <weight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">110.5</weight>
+        <wingspan rdf:datatype="http://www.w3.org/2001/XMLSchema#float">85.0</wingspan>
+    </Bird>
+
+    <Bird rdf:about="#Bird_PF001">
+        <rdfs:label>Peregrine Falcon PF-001</rdfs:label>
+        <bandNumber>PF-2024-001</bandNumber>
+        <age rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">5</age>
+        <sex>Male</sex>
+        <weight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">750.0</weight>
+        <wingspan rdf:datatype="http://www.w3.org/2001/XMLSchema#float">105.0</wingspan>
+    </Bird>
+
+    <Bird rdf:about="#Bird_RK001">
+        <rdfs:label>Red Knot RK-001</rdfs:label>
+        <bandNumber>RK-2024-001</bandNumber>
+        <age rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">2</age>
+        <sex>Female</sex>
+        <weight rdf:datatype="http://www.w3.org/2001/XMLSchema#float">140.0</weight>
+        <wingspan rdf:datatype="http://www.w3.org/2001/XMLSchema#float">65.0</wingspan>
+    </Bird>
+
+    <BreedingGround rdf:about="#Location_Arctic">
+        <rdfs:label>Arctic Breeding Grounds</rdfs:label>
+        <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">78.2</latitude>
+        <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-105.5</longitude>
+        <altitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">50.0</altitude>
+    </BreedingGround>
+
+    <WinteringGround rdf:about="#Location_Antarctic">
+        <rdfs:label>Antarctic Wintering Grounds</rdfs:label>
+        <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-70.5</latitude>
+        <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-8.3</longitude>
+        <altitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">0.0</altitude>
+    </WinteringGround>
+
+    <Stopover rdf:about="#Location_DelawareBay">
+        <rdfs:label>Delaware Bay Stopover</rdfs:label>
+        <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">39.1</latitude>
+        <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-75.2</longitude>
+        <altitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">5.0</altitude>
+    </Stopover>
+
+    <Location rdf:about="#Location_GulfMexico">
+        <rdfs:label>Gulf of Mexico</rdfs:label>
+        <latitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">25.5</latitude>
+        <longitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">-90.0</longitude>
+    </Location>
+
+    <AtlanticFlyway rdf:about="#Route_Atlantic">
+        <rdfs:label>Atlantic Flyway</rdfs:label>
+        <distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">15000.0</distance>
+    </AtlanticFlyway>
+
+    <PacificFlyway rdf:about="#Route_Pacific">
+        <rdfs:label>Pacific Flyway</rdfs:label>
+        <distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">12000.0</distance>
+    </PacificFlyway>
+
+    <FallMigration rdf:about="#Migration_AT001_Fall2024">
+        <rdfs:label>Arctic Tern Fall Migration 2024</rdfs:label>
+        <migrationStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-08-15T06:00:00</migrationStartDate>
+        <migrationEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-10-30T18:00:00</migrationEndDate>
+        <distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">44000.0</distance>
+        <duration rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">76</duration>
+    </FallMigration>
+
+    <SpringMigration rdf:about="#Migration_PF001_Spring2024">
+        <rdfs:label>Peregrine Falcon Spring Migration 2024</rdfs:label>
+        <migrationStartDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-03-10T08:00:00</migrationStartDate>
+        <migrationEndDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-04-25T16:00:00</migrationEndDate>
+        <distance rdf:datatype="http://www.w3.org/2001/XMLSchema#float">8500.0</distance>
+        <duration rdf:datatype="http://www.w3.org/2001/XMLSchema#integer">46</duration>
+    </SpringMigration>
+
+    <GPSTransmitter rdf:about="#Device_GPS001">
+        <rdfs:label>GPS Transmitter 001</rdfs:label>
+        <deviceID>GPS-TX-001</deviceID>
+        <batteryLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#float">85.5</batteryLevel>
+    </GPSTransmitter>
+
+    <SatelliteTag rdf:about="#Device_SAT001">
+        <rdfs:label>Satellite Tag 001</rdfs:label>
+        <deviceID>SAT-TAG-001</deviceID>
+        <batteryLevel rdf:datatype="http://www.w3.org/2001/XMLSchema#float">92.0</batteryLevel>
+    </SatelliteTag>
+
+    <Researcher rdf:about="#Observer_DrSmith">
+        <rdfs:label>Dr. Jane Smith</rdfs:label>
+    </Researcher>
+
+    <CitizenScientist rdf:about="#Observer_JohnDoe">
+        <rdfs:label>John Doe</rdfs:label>
+    </CitizenScientist>
+
+    <GPSObservation rdf:about="#Obs_AT001_001">
+        <rdfs:label>Arctic Tern Observation 001</rdfs:label>
+        <observationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-09-15T12:30:00</observationDate>
+        <altitude rdf:datatype="http://www.w3.org/2001/XMLSchema#float">1200.0</altitude>
+    </GPSObservation>
+
+    <VisualObservation rdf:about="#Obs_RK001_001">
+        <rdfs:label>Red Knot Visual Observation 001</rdfs:label>
+        <observationDate rdf:datatype="http://www.w3.org/2001/XMLSchema#dateTime">2024-05-20T09:00:00</observationDate>
+    </VisualObservation>
+
+    <Wetland rdf:about="#Habitat_Wetland01">
+        <rdfs:label>Coastal Wetland Habitat</rdfs:label>
+    </Wetland>
+
+    <Forest rdf:about="#Habitat_BorealForest">
+        <rdfs:label>Boreal Forest Habitat</rdfs:label>
+    </Forest>
+
+    <WildlifeRefuge rdf:about="#Conservation_DelawareBayRefuge">
+        <rdfs:label>Delaware Bay Wildlife Refuge</rdfs:label>
+    </WildlifeRefuge>
+
+    <NationalPark rdf:about="#Conservation_ArcticNP">
+        <rdfs:label>Arctic National Park</rdfs:label>
+    </NationalPark>
+
+    <ClimateChange rdf:about="#Threat_ClimateChange">
+        <rdfs:label>Climate Change Threat</rdfs:label>
+    </ClimateChange>
+
+    <HabitatLoss rdf:about="#Threat_WetlandLoss">
+        <rdfs:label>Wetland Habitat Loss</rdfs:label>
+    </HabitatLoss>
+
+    <Storm rdf:about="#Weather_Hurricane2024">
+        <rdfs:label>Hurricane 2024</rdfs:label>
+        <windSpeed rdf:datatype="http://www.w3.org/2001/XMLSchema#float">120.0</windSpeed>
+        <temperature rdf:datatype="http://www.w3.org/2001/XMLSchema#float">26.5</temperature>
+    </Storm>
+
+    <Tailwind rdf:about="#Weather_Tailwind001">
+        <rdfs:label>Favorable Tailwind</rdfs:label>
+        <windSpeed rdf:datatype="http://www.w3.org/2001/XMLSchema#float">45.0</windSpeed>
+    </Tailwind>
+
+    <!-- Relationships -->
+    <rdf:Description rdf:about="#Bird_AT001">
+        <belongsToSpecies rdf:resource="#Species_ArcticTern"/>
+        <trackedBy rdf:resource="#Device_GPS001"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Bird_PF001">
+        <belongsToSpecies rdf:resource="#Species_PeregrineFalcon"/>
+        <trackedBy rdf:resource="#Device_SAT001"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Bird_RK001">
+        <belongsToSpecies rdf:resource="#Species_RedKnot"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Species_ArcticTern">
+        <breedsIn rdf:resource="#Location_Arctic"/>
+        <wintersIn rdf:resource="#Location_Antarctic"/>
+        <threatenedBy rdf:resource="#Threat_ClimateChange"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Species_RedKnot">
+        <breedsIn rdf:resource="#Location_Arctic"/>
+        <threatenedBy rdf:resource="#Threat_WetlandLoss"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Migration_AT001_Fall2024">
+        <followsRoute rdf:resource="#Route_Atlantic"/>
+        <departFrom rdf:resource="#Location_Arctic"/>
+        <arrivesAt rdf:resource="#Location_Antarctic"/>
+        <stopsAt rdf:resource="#Location_DelawareBay"/>
+        <affectedByWeather rdf:resource="#Weather_Tailwind001"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Migration_PF001_Spring2024">
+        <followsRoute rdf:resource="#Route_Pacific"/>
+        <departFrom rdf:resource="#Location_GulfMexico"/>
+        <affectedByWeather rdf:resource="#Weather_Hurricane2024"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Obs_AT001_001">
+        <observedAt rdf:resource="#Location_DelawareBay"/>
+        <recordedBy rdf:resource="#Observer_DrSmith"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Obs_RK001_001">
+        <observedAt rdf:resource="#Location_DelawareBay"/>
+        <recordedBy rdf:resource="#Observer_JohnDoe"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Habitat_Wetland01">
+        <inhabitedBy rdf:resource="#Species_RedKnot"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Habitat_BorealForest">
+        <inhabitedBy rdf:resource="#Species_BarnSwallow"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Location_DelawareBay">
+        <protectedBy rdf:resource="#Conservation_DelawareBayRefuge"/>
+    </rdf:Description>
+
+    <rdf:Description rdf:about="#Location_Arctic">
+        <protectedBy rdf:resource="#Conservation_ArcticNP"/>
+    </rdf:Description>
+
+</rdf:RDF>
