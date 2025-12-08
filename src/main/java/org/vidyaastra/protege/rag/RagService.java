@@ -13,21 +13,21 @@ import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Main RAG service that orchestrates Neo4j, in-memory vector store, and AI models
+ * Main RAG service that orchestrates Neo4j, Qdrant vector store, and AI models
  */
 public class RagService {
     
     private static final Logger logger = LoggerFactory.getLogger(RagService.class);
     
     private final Neo4jService neo4jService;
-    private final InMemoryVectorStore vectorStore;
+    private final QdrantVectorStore vectorStore;
     private final EmbeddingService embeddingService;
     private final String aiModel;
     private final String aiApiKey;
     private final OkHttpClient httpClient;
     private final Gson gson;
     
-    public RagService(Neo4jService neo4jService, InMemoryVectorStore vectorStore,
+    public RagService(Neo4jService neo4jService, QdrantVectorStore vectorStore,
                      EmbeddingService embeddingService, String aiModel, String aiApiKey) {
         this.neo4jService = neo4jService;
         this.vectorStore = vectorStore;
@@ -41,7 +41,8 @@ public class RagService {
             .build();
         this.gson = new Gson();
         
-        logger.info("Initialized RagService with AI model: {}", this.aiModel);
+        logger.info("Initialized RagService with AI model: {} and Qdrant Cloud vector store", 
+            this.aiModel);
     }
     
     private String extractModelName(String selection) {
@@ -60,8 +61,14 @@ public class RagService {
         // Step 1: Generate embedding for the user query
         List<Float> queryEmbedding = embeddingService.generateEmbedding(userQuery);
         
+        // Convert to float[] for FileBasedVectorStore
+        float[] queryVector = new float[queryEmbedding.size()];
+        for (int i = 0; i < queryEmbedding.size(); i++) {
+            queryVector[i] = queryEmbedding.get(i);
+        }
+        
         // Step 2: Search for relevant graph chunks in vector store
-        List<InMemoryVectorStore.SearchResult> searchResults = vectorStore.search(queryEmbedding, 5);
+        List<QdrantVectorStore.SearchResult> searchResults = vectorStore.search(queryVector, 5);
         
         // Step 3: Retrieve graph schema from Neo4j
         String graphSchema = neo4jService.getGraphSchema();
@@ -95,22 +102,28 @@ public class RagService {
         
         List<List<Float>> embeddings = embeddingService.generateEmbeddings(texts);
         
-        // Prepare vector data for in-memory store
-        List<InMemoryVectorStore.VectorData> vectorDataList = new ArrayList<>();
+        // Prepare vector data for Qdrant
+        List<QdrantVectorStore.VectorData> vectorDataList = new ArrayList<>();
         for (int i = 0; i < graphChunks.size(); i++) {
             Neo4jService.GraphChunk chunk = graphChunks.get(i);
             List<Float> embedding = embeddings.get(i);
+            
+            // Convert to float[]
+            float[] vector = new float[embedding.size()];
+            for (int j = 0; j < embedding.size(); j++) {
+                vector[j] = embedding.get(j);
+            }
             
             // Convert metadata to payload format
             Map<String, Object> payload = new HashMap<>();
             payload.put("text", chunk.getText());
             payload.putAll(chunk.getMetadata());
             
-            vectorDataList.add(new InMemoryVectorStore.VectorData(embedding, payload));
+            vectorDataList.add(new QdrantVectorStore.VectorData("graph_" + i, vector, payload));
         }
         
         // Upsert to vector store
-        vectorStore.upsertVectors(vectorDataList);
+        vectorStore.upsert(vectorDataList);
         
         logger.info("Successfully indexed {} graph chunks to vector store", graphChunks.size());
     }
@@ -190,31 +203,37 @@ public class RagService {
         // Generate embeddings
         List<List<Float>> embeddings = embeddingService.generateEmbeddings(chunks);
         
-        // Prepare vector data
-        List<InMemoryVectorStore.VectorData> vectorDataList = new ArrayList<>();
+        // Prepare vector data for Qdrant
+        List<QdrantVectorStore.VectorData> vectorDataList = new ArrayList<>();
         for (int i = 0; i < chunks.size(); i++) {
+            List<Float> embedding = embeddings.get(i);
+            float[] vector = new float[embedding.size()];
+            for (int j = 0; j < embedding.size(); j++) {
+                vector[j] = embedding.get(j);
+            }
+            
             Map<String, Object> payload = new HashMap<>();
             payload.put("text", chunks.get(i));
             payload.put("source", "ontology");
             
-            vectorDataList.add(new InMemoryVectorStore.VectorData(embeddings.get(i), payload));
+            vectorDataList.add(new QdrantVectorStore.VectorData("ontology_" + i, vector, payload));
         }
         
         // Upsert to vector store
-        vectorStore.upsertVectors(vectorDataList);
+        vectorStore.upsert(vectorDataList);
         
         logger.info("Successfully indexed {} ontology elements to vector store", chunks.size());
     }
     
-    private String buildContext(List<InMemoryVectorStore.SearchResult> searchResults) {
+    private String buildContext(List<QdrantVectorStore.SearchResult> searchResults) {
         StringBuilder context = new StringBuilder();
         context.append("Relevant graph data retrieved from vector store:\n\n");
         
         for (int i = 0; i < searchResults.size(); i++) {
-            InMemoryVectorStore.SearchResult result = searchResults.get(i);
+            QdrantVectorStore.SearchResult result = searchResults.get(i);
             context.append(String.format("Result %d (similarity: %.3f):\n", i + 1, result.getScore()));
             
-            Object textValue = result.getPayload().get("text");
+            Object textValue = result.getMetadata().get("text");
             if (textValue != null) {
                 context.append(textValue.toString()).append("\n\n");
             }
@@ -315,3 +334,4 @@ public class RagService {
         }
     }
 }
+

@@ -18,6 +18,8 @@ public class RagPreferences {
     
     // Vector Store preference keys
     private static final String VECTOR_STORE_COLLECTION_KEY = "vectorstore.collection";
+    private static final String QDRANT_URL_KEY = "qdrant.url";
+    private static final String QDRANT_API_KEY_KEY = "qdrant.apikey";
     
     // Embedding model preference keys
     private static final String EMBEDDING_MODEL_KEY = "embedding.model";
@@ -33,6 +35,7 @@ public class RagPreferences {
     private static final String DEFAULT_NEO4J_DATABASE = "neo4j";
     
     private static final String DEFAULT_VECTOR_STORE_COLLECTION = "ontology_graphs";
+    private static final String DEFAULT_QDRANT_URL = "./qdrant_local";
     
     private static final String DEFAULT_EMBEDDING_MODEL = "text-embedding-3-small (OpenAI)";
     private static final String DEFAULT_AI_MODEL = "gpt-4o-mini (OpenAI)";
@@ -82,6 +85,22 @@ public class RagPreferences {
     
     public void setVectorStoreCollection(String collection) {
         getPreferences().putString(VECTOR_STORE_COLLECTION_KEY, collection);
+    }
+    
+    public String getQdrantUrl() {
+        return getPreferences().getString(QDRANT_URL_KEY, DEFAULT_QDRANT_URL);
+    }
+    
+    public void setQdrantUrl(String url) {
+        getPreferences().putString(QDRANT_URL_KEY, url);
+    }
+    
+    public String getQdrantApiKey() {
+        return getPreferences().getString(QDRANT_API_KEY_KEY, "");
+    }
+    
+    public void setQdrantApiKey(String apiKey) {
+        getPreferences().putString(QDRANT_API_KEY_KEY, apiKey);
     }
     
     // Embedding model getters and setters

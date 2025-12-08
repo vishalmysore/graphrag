@@ -39,3 +39,5 @@ build/
 
 run-hc.bat
 /run-vidyaastra.bat
+QDRANT_CLOUD_SETUP.md
+QDRANT_SETUP.md

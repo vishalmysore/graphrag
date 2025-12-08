@@ -23,6 +23,8 @@ public class RagQueryPanel extends AbstractOWLViewComponent {
     private JTextField neo4jDatabaseField;
     
     private JTextField vectorStoreCollectionField;
+    private JTextField qdrantUrlField;
+    private JPasswordField qdrantApiKeyField;
     
     private JComboBox<String> embeddingModelCombo;
     private JPasswordField embeddingApiKeyField;
@@ -45,7 +47,7 @@ public class RagQueryPanel extends AbstractOWLViewComponent {
     // Service instances
     private RagPreferences preferences;
     private Neo4jService neo4jService;
-    private InMemoryVectorStore vectorStore;
+    private QdrantVectorStore vectorStore;
     private EmbeddingService embeddingService;
     private RagService ragService;
     
@@ -99,20 +101,29 @@ public class RagQueryPanel extends AbstractOWLViewComponent {
         
         // Vector Store Configuration Section
         gbc.gridy = 6;
-        addSectionHeader(configGrid, gbc, 6, "Vector Store Configuration (In-Memory)");
+        addSectionHeader(configGrid, gbc, 6, "Qdrant Vector Store Configuration");
         
         gbc.gridy = 7;
+        addLabeledField(configGrid, gbc, "Qdrant URL:", qdrantUrlField = new JTextField(30));
+        qdrantUrlField.setText("./qdrant_local");
+        qdrantUrlField.setToolTipText("Local path (e.g., ./qdrant_local) or Cloud URL (e.g., xyz.gcp.cloud.qdrant.io)");
+        
+        gbc.gridy = 8;
+        addLabeledField(configGrid, gbc, "Qdrant API Key:", qdrantApiKeyField = new JPasswordField(30));
+        qdrantApiKeyField.setToolTipText("Leave empty for local file storage, required for Qdrant Cloud");
+        
+        gbc.gridy = 9;
         addLabeledField(configGrid, gbc, "Collection:", vectorStoreCollectionField = new JTextField(30));
         vectorStoreCollectionField.setText("ontology_graphs");
         
-        gbc.gridy = 8;
+        gbc.gridy = 10;
         gbc.gridx = 1;
         vectorStoreStatusLabel = new JLabel("⚪ Not Initialized");
         configGrid.add(vectorStoreStatusLabel, gbc);
         
         // Embedding Model Configuration
-        gbc.gridy = 9;
-        addSectionHeader(configGrid, gbc, 9, "Embedding Model");
+        gbc.gridy = 11;
+        addSectionHeader(configGrid, gbc, 11, "Embedding Model");
         
         gbc.gridy = 12;
         String[] embeddingModels = {
@@ -261,6 +272,8 @@ public class RagQueryPanel extends AbstractOWLViewComponent {
         
         // Save vector store settings
         preferences.setVectorStoreCollection(vectorStoreCollectionField.getText());
+        preferences.setQdrantUrl(qdrantUrlField.getText());
+        preferences.setQdrantApiKey(new String(qdrantApiKeyField.getPassword()));
         
         // Save model settings
         preferences.setEmbeddingModel((String) embeddingModelCombo.getSelectedItem());
@@ -286,12 +299,21 @@ public class RagQueryPanel extends AbstractOWLViewComponent {
                     neo4jDatabaseField.getText()
                 );
                 
-                // Create in-memory vector store
-                vectorStore = new InMemoryVectorStore(
-                    vectorStoreCollectionField.getText()
+                // Create Qdrant Cloud vector store
+                String qdrantUrl = qdrantUrlField.getText();
+                String apiKey = new String(qdrantApiKeyField.getPassword());
+                
+                if (qdrantUrl.isEmpty()) {
+                    throw new RuntimeException("Qdrant Cloud URL is required");
+                }
+                
+                vectorStore = new QdrantVectorStore(
+                    vectorStoreCollectionField.getText(),
+                    qdrantUrl,
+                    apiKey.isEmpty() ? null : apiKey
                 );
                 
-                // Initialize embedding service
+                // Create embedding service
                 embeddingService = new EmbeddingService(
                     (String) embeddingModelCombo.getSelectedItem(),
                     new String(embeddingApiKeyField.getPassword())
@@ -387,7 +409,7 @@ public class RagQueryPanel extends AbstractOWLViewComponent {
             protected void done() {
                 try {
                     get();
-                    InMemoryVectorStore.CollectionStats stats = vectorStore.getStats();
+                    QdrantVectorStore.CollectionStats stats = vectorStore.getStats();
                     JOptionPane.showMessageDialog(RagQueryPanel.this,
                         "Successfully indexed Neo4j graph!\n\nTotal vectors: " + stats.getVectorsCount(),
                         "Indexing Complete", JOptionPane.INFORMATION_MESSAGE);
@@ -432,7 +454,7 @@ public class RagQueryPanel extends AbstractOWLViewComponent {
             protected void done() {
                 try {
                     get();
-                    InMemoryVectorStore.CollectionStats stats = vectorStore.getStats();
+                    QdrantVectorStore.CollectionStats stats = vectorStore.getStats();
                     JOptionPane.showMessageDialog(RagQueryPanel.this,
                         "Successfully indexed ontology!\n\nTotal vectors: " + stats.getVectorsCount(),
                         "Indexing Complete", JOptionPane.INFORMATION_MESSAGE);
@@ -457,13 +479,14 @@ public class RagQueryPanel extends AbstractOWLViewComponent {
         }
         
         try {
-            InMemoryVectorStore.CollectionStats stats = vectorStore.getStats();
+            QdrantVectorStore.CollectionStats stats = vectorStore.getStats();
             StringBuilder sb = new StringBuilder();
             sb.append("Vector Store Statistics:\n\n");
             sb.append("Collection: ").append(vectorStoreCollectionField.getText()).append("\n");
+            sb.append("Qdrant Cloud URL: ").append(qdrantUrlField.getText()).append("\n");
             sb.append("Total Vectors: ").append(stats.getVectorsCount()).append("\n");
             sb.append("Total Points: ").append(stats.getPointsCount()).append("\n");
-            sb.append("Storage Type: In-Memory\n");
+            sb.append("Storage Type: Qdrant Cloud\n");
             sb.append("Status: ").append(stats.getVectorsCount() > 0 ? "Ready" : "Empty - Please index data").append("\n\n");
             
             if (stats.getVectorsCount() == 0) {
@@ -487,6 +510,8 @@ public class RagQueryPanel extends AbstractOWLViewComponent {
         neo4jPasswordField.setText(preferences.getNeo4jPassword());
         neo4jDatabaseField.setText(preferences.getNeo4jDatabase());
         
+        qdrantUrlField.setText(preferences.getQdrantUrl());
+        qdrantApiKeyField.setText(preferences.getQdrantApiKey());
         vectorStoreCollectionField.setText(preferences.getVectorStoreCollection());
         
         String embModel = preferences.getEmbeddingModel();

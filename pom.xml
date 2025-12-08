@@ -20,6 +20,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <protege.version>5.6.4</protege.version>
         <neo4j.version>4.4.13</neo4j.version>
+        <qdrant.version>1.9.1</qdrant.version>
     </properties>
 
     <dependencies>
@@ -64,6 +65,13 @@
             <artifactId>gson</artifactId>
             <version>2.10.1</version>
         </dependency>
+        
+        <!-- Jackson for JSON serialization (file-based vector store) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.15.3</version>
+        </dependency>
 
         <!-- OWL API -->
         <dependency>
@@ -79,6 +87,20 @@
             <artifactId>slf4j-api</artifactId>
             <version>2.0.9</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Qdrant Java Client -->
+        <dependency>
+            <groupId>io.qdrant</groupId>
+            <artifactId>client</artifactId>
+            <version>${qdrant.version}</version>
+        </dependency>
+
+        <!-- Protobuf (required by Qdrant) -->
+        <dependency>
+            <groupId>com.google.protobuf</groupId>
+            <artifactId>protobuf-java</artifactId>
+            <version>3.25.1</version>
         </dependency>
     </dependencies>
 
@@ -118,7 +140,17 @@
                             error_prone_annotations,
                             j2objc-annotations,
                             failureaccess,
-                            listenablefuture
+                            listenablefuture,
+                            client,
+                            grpc-*,
+                            protobuf-*,
+                            annotations,
+                            perfmark-api,
+                            gson,
+                            animal-sniffer-annotations,
+                            jackson-databind,
+                            jackson-core,
+                            jackson-annotations
                         </Embed-Dependency>
                         <_exportcontents>
                             com.protege.rag.*
